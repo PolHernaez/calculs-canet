@@ -1,5 +1,5 @@
-// Service worker — funcionament sense internet (cache-first per als fitxers de l'app)
-const CACHE = "canet-v1";
+// Service worker — Càlculs Canet (web/PWA). Cache-first dels fitxers propis.
+const CACHE = "canet-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -27,7 +27,6 @@ self.addEventListener("fetch", e => {
   if (req.method !== "GET") return;
   e.respondWith(
     caches.match(req).then(hit => hit || fetch(req).then(res => {
-      // guarda una còpia dels recursos propis
       if (res.ok && new URL(req.url).origin === location.origin) {
         const copy = res.clone();
         caches.open(CACHE).then(c => c.put(req, copy));
