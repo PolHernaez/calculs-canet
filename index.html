@@ -733,7 +733,7 @@ document.addEventListener("click",e=>{
 /* SHEET */
 function openSheet(html,locked){ const f=onSheetClose; onSheetClose=null; if(f) f(); $("#sheet").dataset.locked=locked?"1":""; $("#sheetBody").innerHTML=html; $("#scrim").classList.add("on"); $("#sheet").classList.add("on"); }
 let onSheetClose=null;
-function closeSheet(){ $("#scrim").classList.remove("on"); $("#sheet").classList.remove("on"); const f=onSheetClose; onSheetClose=null; if(f) f(); }
+function closeSheet(){ if(document.activeElement&&$("#sheet").contains(document.activeElement)) document.activeElement.blur(); $("#scrim").classList.remove("on"); $("#sheet").classList.remove("on"); const f=onSheetClose; onSheetClose=null; if(f) f(); }
 $("#scrim").addEventListener("click",()=>{ if(!$("#sheet").dataset.locked) closeSheet(); });
 function toast(m,ms){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),ms||Math.max(2000,m.length*55)); }
 // Confirmació en una fulla (no el confirm() del sistema). Resol true/false; tancar-la és «no».
