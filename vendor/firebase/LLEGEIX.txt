@@ -1,0 +1,1 @@
+Baixats de https://www.gstatic.com/firebasejs/12.19.0/ el 2026-10-28. Canvis: import de firebase-app.js relatiu i sense sourceMappingURL.

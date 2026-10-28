@@ -54,7 +54,7 @@
     border-radius:12px;overflow:hidden;}
   .summary>div{flex:1;padding:10px 8px;text-align:center;background:rgba(255,255,255,.06);}
   .summary .v{font-size:17px;font-weight:700;}
-  .summary .k{font-size:10.5px;opacity:.85;font-weight:500;margin-top:1px;text-transform:uppercase;letter-spacing:.4px;}
+  .summary .k{font-size:12px;opacity:.85;font-weight:500;margin-top:1px;}
 
   main{max-width:680px;margin:0 auto;padding:14px 13px 6px;}
   .view{display:none;}
@@ -70,6 +70,7 @@
   .person .nm{font-weight:650;font-size:15.5px;}
   .person .meta{font-size:12.5px;color:var(--muted);margin-top:2px;}
   .person .amt{margin-left:auto;text-align:right;}
+  .person .amt .k{font-size:11.5px;color:var(--muted);}
   .person .amt .p{font-weight:700;font-size:15.5px;}
   .person .amt .bal{font-size:12px;font-weight:650;margin-top:3px;}
   .bal.pos{color:var(--pos);} .bal.neg{color:var(--neg);} .bal.zero{color:var(--muted);}
@@ -82,8 +83,7 @@
   .hint{font-size:12.5px;color:var(--muted);line-height:1.5;margin:12px 4px 0;}
 
   /* RESULT */
-  .sect{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-    color:var(--muted);margin:6px 4px 10px;}
+  .sect{font-size:14px;font-weight:700;color:var(--muted);margin:6px 4px 10px;}
   .pay{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);
     border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:9px;}
   .pay .who{font-weight:650;font-size:14.5px;}
@@ -137,7 +137,7 @@
   .stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:11px;background:var(--field);overflow:hidden;}
   .stepper button{width:46px;height:48px;font-size:22px;color:var(--green);font-weight:600;flex:none;}
   .stepper button:active{background:var(--chip);}
-  .stepper input{flex:1;text-align:center;border:none;background:transparent;outline:none;font-weight:700;font-size:17px;}
+  .stepper input{flex:1;min-width:0;width:0;text-align:center;border:none;background:transparent;outline:none;font-weight:700;font-size:17px;}
 
   .kid{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
   .kid .fld{flex:1;}
@@ -146,6 +146,23 @@
   .kid .w.p50{background:#fdf2dd;color:#9a6b15;}
   .kid .w.p0{background:#eef1ef;color:var(--muted);}
   .kid .del{width:40px;height:46px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--neg);background:var(--neg-bg);flex:none;}
+  .tk{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+  .tk .fld{flex:1;min-width:0;}
+  .tk .ph{width:46px;height:46px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;
+    background:var(--chip);color:var(--green);overflow:hidden;border:1px solid var(--line);}
+  .tk .ph img{width:100%;height:100%;object-fit:cover;}
+  .tk .fld.ocr{border-color:var(--green-l);background:#eef7f1;}
+  .tk .del{width:40px;height:46px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--neg);background:var(--neg-bg);flex:none;}
+  .tktot{display:flex;justify-content:space-between;align-items:center;padding:10px 2px 0;border-top:1px solid var(--line2);margin-top:4px;font-weight:650;}
+  #picker{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--card);border-radius:20px 20px 0 0;max-width:680px;margin:0 auto;
+    padding:14px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(15,30,22,.25);display:none;}
+  #picker.on{display:block;}
+  #picker .btn{margin-top:9px;}
+  #viewer{position:fixed;inset:0;z-index:55;background:#0d1511;display:none;flex-direction:column;}
+  #viewer.on{display:flex;}
+  #viewer img{flex:1;min-height:0;object-fit:contain;width:100%;}
+  #viewer .vbar{display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));}
+  #viewer .vbar .btn{flex:1;}
   .addkid{display:inline-flex;align-items:center;gap:7px;color:var(--green);font-weight:650;font-size:14px;padding:8px 2px;}
 
   .menu a{display:flex;align-items:center;gap:13px;padding:15px 4px;font-size:15.5px;font-weight:550;
@@ -155,15 +172,57 @@
   .menu a .mi{width:22px;display:flex;justify-content:center;color:var(--muted);}
   .menu a.danger .mi{color:var(--neg);}
 
+  .upd-notes{white-space:pre-wrap;font-size:14px;color:var(--ink);background:var(--field);border:1px solid var(--line);
+    border-radius:11px;padding:12px 14px;margin:0 0 16px;max-height:40vh;overflow-y:auto;}
+  .upd-bar{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin:10px 0 4px;}
+  .upd-bar i{display:block;height:100%;width:0;background:var(--green);transition:width .2s;}
+  .link{color:var(--green);font-weight:650;text-decoration:underline;padding:12px 2px;}
+  .err{color:var(--neg);font-weight:650;margin:0 0 10px;}
   #toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(14px);
     background:#16201b;color:#fff;padding:11px 18px;border-radius:11px;font-size:13.5px;font-weight:600;z-index:60;
     opacity:0;pointer-events:none;transition:.25s;max-width:86%;text-align:center;}
   #toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ESDEVENIMENTS (3.0) */
+  [hidden]{display:none!important;}
+  body.home .summary, body.home nav{display:none;}
+  body.home{padding-bottom:calc(24px + env(safe-area-inset-bottom));}
+  .ev{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 14px;}
+  .ev .open{flex:1;min-width:0;padding:8px 0;text-align:left;}
+  .ev .nm{font-weight:650;font-size:15.5px;}
+  .ev .meta{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .ev .more{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex:none;}
+  .ev .more:active{background:var(--chip);}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;background:#fdf2dd;color:#9a6b15;margin-left:6px;vertical-align:1px;}
+  .tag.cloud{background:#e3efe8;color:var(--green-d);}
+  .btn-ghost{background:var(--chip);}
+  .btn-danger{color:#fff;background:var(--neg);}
+  .menu .sect{margin:16px 4px 2px;}
+  .status{display:inline-flex;align-items:center;gap:6px;}
+  .status i{width:7px;height:7px;border-radius:50%;background:#9fe0b8;display:inline-block;}
+  .status.off i{background:#f2c46b;} .status.pend i{background:#fff;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.3;}}
+  .notice{background:#fdf2dd;color:#6b4a0e;border-radius:11px;padding:10px 12px;font-size:13.5px;margin:0 0 14px;}
+  .cmp{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .cmp th{font-size:12px;color:var(--muted);font-weight:650;text-align:right;padding:8px 6px;}
+  .cmp th:first-child,.cmp td:first-child{text-align:left;}
+  .cmp td{padding:9px 6px;border-top:1px solid var(--line2);text-align:right;}
+  #printArea{display:none;}
+  @media print{
+    body>*:not(#printArea){display:none!important;}
+    #printArea{display:block;color:#000;font-size:12pt;}
+    html,body{background:#fff;padding:0;}
+    #printArea table{width:100%;border-collapse:collapse;margin:8pt 0 16pt;}
+    #printArea td,#printArea th{border-bottom:1px solid #ccc;padding:5pt;text-align:left;}
+    #printArea .r{text-align:right;}
+  }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
 </style>
 </head>
 <body>
 <header>
   <div class="bar">
+    <button class="iconbtn" id="backBtn" aria-label="Tornar als esdeveniments" hidden></button>
     <div style="flex:1;min-width:0">
       <h1 id="title">Càlculs Canet</h1>
       <div class="sub" id="subtitle">Repartiment de despeses</div>
@@ -173,15 +232,21 @@
   <div class="summary">
     <div><div class="v num" id="sTotal">0 €</div><div class="k">Total pagat</div></div>
     <div><div class="v num" id="sPeople">0</div><div class="k">Persones</div></div>
-    <div><div class="v num" id="sUnit">0 €</div><div class="k">Part justa</div></div>
+    <div><div class="v num" id="sUnit">0 €</div><div class="k">Per adult</div></div>
   </div>
 </header>
 
 <main>
+  <section class="view" id="v-home">
+    <div id="events"></div>
+    <button class="addbtn" id="newEv"></button>
+    <div id="archived"></div>
+  </section>
+
   <section class="view on" id="v-list">
     <div id="people"></div>
     <button class="addbtn" id="addBtn"></button>
-    <div class="hint">Cada fila és una persona o família: el que ha pagat, quants adults i l'edat dels nens. La part justa i el saldo es calculen sols.</div>
+    <div class="hint">Cada fila és una persona o una família que va junta: hi poses el que ha pagat, quants adults són i l'edat dels nens. Les persones, el que toca pagar a cadascú i el saldo es calculen sols.</div>
   </section>
 
   <section class="view" id="v-res">
@@ -196,13 +261,27 @@
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet"><div class="grab"></div><div id="sheetBody"></div></div>
+<div id="picker" role="dialog" aria-label="Foto del tiquet">
+  <button class="btn btn-primary" id="pkCam">Fer una foto</button>
+  <button class="btn" id="pkGal" style="background:var(--chip)">Triar de la galeria</button>
+  <button class="btn" id="pkNo">Cancel·lar</button>
+</div>
+<input type="file" id="inCam" accept="image/*" capture="environment" hidden>
+<input type="file" id="inGal" accept="image/*" hidden>
+<div id="viewer" role="dialog" aria-label="Foto del tiquet"><img id="vImg" alt="Foto del tiquet">
+  <div class="vbar"><button class="btn" id="vDel" style="color:#fff;background:rgba(255,255,255,.14)">Treure la foto</button>
+  <button class="btn btn-primary" id="vClose">Tancar</button></div></div>
 <div id="toast"></div>
+<input type="file" id="inJson" accept="application/json,.json" hidden>
+<div id="printArea"></div>
 
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
-const LS="calculs_canet_v2";
+const LS="calculs_canet_v2";    // dades d'abans de la 3.0: només es llegeixen, no s'esborren mai (es pot tornar a la 2.x)
+const LS3="calculs_canet_v3";   // des de la 3.0: tots els esdeveniments
+const SCHEMA=3;
 const fmt=new Intl.NumberFormat("ca-ES",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2});
 const money=n=>fmt.format(Math.round((Number(n)||0)*100)/100+0);
 const uid=()=>(crypto.randomUUID?crypto.randomUUID():"id"+Date.now()+Math.random().toString(36).slice(2));
@@ -217,15 +296,42 @@ const IC={
   share:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
   close:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
   trash:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+  download:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  camera:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  back:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>',
+  more:'<svg class="ico" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>',
+  edit:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+  copy:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  archive:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>',
+  upload:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+  users:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  file:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
   beaker:'<svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>',
 };
 
-let state=load()||blank();
+// store = tots els esdeveniments; state = l'esdeveniment obert ({config, rows, ...}) o null a la pantalla d'inici.
+// El càlcul (compute, settle...) només mira «state», com abans.
+let store=null, state=null;   // es carrega a l'ARRENCADA (al final), quan ja hi ha totes les funcions
 
-function load(){ try{const s=localStorage.getItem(LS); if(!s)return null; const o=JSON.parse(s);
-  o.config||(o.config={zero:3,full:12}); o.rows||(o.rows=[]); return o;}catch(e){return null;} }
-function save(){ try{localStorage.setItem(LS,JSON.stringify(state));}catch(e){} }
-function blank(){ return {config:{zero:3,full:12}, rows:[]}; }
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } }
+function loadStore(){
+  const v2=lsGet(LS), v3=lsGet(LS3);
+  if(v2&&!lsGet(LS+"_backup")) lsSet(LS+"_backup",v2);          // còpia de les dades velles abans de migrar
+  const st=migrate(v2,v3,Date.now());
+  if(st.corrupt) lsSet(LS3+"_corrupte_"+Date.now(),v3);         // no es trepitja mai un fitxer que no s'entén
+  if(st.readonly) setTimeout(()=>toast("Aquestes dades són d'una versió més nova de l'app. Actualitza-la: ara no es desa res."),600);
+  delete st.corrupt; return st;
+}
+let saveFail=false;
+function save(){
+  if(store.readonly) return;
+  const ok=lsSet(LS3,JSON.stringify(store));
+  if(!ok&&!saveFail) toast("No s'ha pogut desar al mòbil (memòria plena?). Exporta una còpia.");
+  saveFail=!ok;
+  Sync.push();
+}
+function backupStore(why){ const s=lsGet(LS3); if(s) lsSet(LS3+"_"+why,s); }
 function seed(){
   return {config:{zero:3,full:12}, rows:[
     {id:uid(),name:"Marc",paid:200,adults:2,kids:[]},
@@ -233,13 +339,81 @@ function seed(){
     {id:uid(),name:"Jordi",paid:150,adults:2,kids:[6,2]},
     {id:uid(),name:"Anna",paid:100,adults:2,kids:[17]},
     {id:uid(),name:"Pau",paid:80,adults:1,kids:[]},
-  ]};
+  ].map(normRow)};
 }
 
 function kidWeight(age){ const a=Number(age); if(isNaN(a))return 0;
   if(a<state.config.zero)return 0; if(a<state.config.full)return 0.5; return 1; }
 function unitsOf(r){ const k=(r.kids||[]).reduce((s,a)=>s+kidWeight(a),0); return (Number(r.adults)||0)+k; }
-function initials(name){ const p=String(name||"").trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"·"; }
+// Tiquets: cada fila en té una llista {id,amount,photo}; «paid» és sempre la seva suma.
+function ticketsTotal(tk){ return Math.round((tk||[]).reduce((s,t)=>s+(Number(t.amount)||0),0)*100)/100; }
+function parseAmount(v){ const n=parseFloat(String(v??"").replace(",",".")); return isNaN(n)?0:n; }
+function normRow(r){   // dades d'abans de la 2.4: l'import que hi havia passa a ser un sol tiquet
+  if(!Array.isArray(r.tickets)) r.tickets=(Number(r.paid)||0)?[{id:uid(),amount:Number(r.paid),photo:false}]:[];
+  r.paid=ticketsTotal(r.tickets); return r; }
+// Lector de tiquets: de les línies que llegeix el mòbil ({text,l,t,r,b,a}), quin és el total. Cada tiquet és diferent:
+// - si el tiquet està tort (a = angle de la línia), es redreça abans de mirar què hi ha a la mateixa fila
+// - cada etiqueta es queda l'import MÉS PROPER (a la mateixa línia darrere la paraula, a la mateixa fila o just a sota), mai el més gran
+// - LLIURAT − CANVI = total: és la pista més segura quan es paga en efectiu
+// - el total no pot ser subtotal, IVA, base, descomptes, punts, ni el que s'ha lliurat/pagat en efectiu, ni el canvi
+// - lletres llegides en lloc de números dins d'un import: O/D→0, B→8, S→5, l/I/|→1, Z→2 («2B,5O» = 28,50)
+const TK={
+  STRONG:/a\s+pagar|a\s+cobrar|t[o0]tal\s+(a\s+pagar|compra|venda|venta|factura|tiquet|ticket|eur|€)|imp[o0]rte?\s+t[o0]tal|amount\s+due|net\s+[àa]\s+payer/i,
+  KEY:/\b(t[o0]t\s?a\s?[l1i]e?|imp[o0]rte?|suma|ttc)\b/i,
+  PAID:/lliura|entrega|efectiu|efectivo|met[àa]l·?.?lic|met[áa]lico|\bcash\b|esp[eè]ces|\bpagat\b|\bpagado\b|\brebut\b|recibido|\bcobrat\b|\bcobrado\b/i,
+  CHANGE:/canvi|cambio|a\s+tornar|a\s+devolver|devoluci|\bchange\b|rendu/i,
+  NOT:/sub\s*-?\s*t[o0]tal|\biva\b(?!.*incl)|i\.v\.a|\btva\b|\bbase\b|imposable|imponible|descompte|descuento|dto\b|propina|punts|puntos|estalvi|ahorro|saldo/i,
+};
+function amountsAt(text){
+  // dins d'un import (2 xifres reals com a mínim), les lletres que el lector confon amb números
+  const t=String(text||"").replace(/[0-9ODoBSlIZ|]{1,6}\s*[.,]\s*[0-9ODoBSlIZ|]{2}(?![0-9A-Za-z])/g,m=>(m.replace(/\D/g,"").length>=2)
+      ?m.replace(/[ODo]/g,"0").replace(/B/g,"8").replace(/S/g,"5").replace(/[lI|]/g,"1").replace(/Z/g,"2").replace(/\s/g,""):m);
+  const out=[], re=/(?:^|[^\d.,\/])(\d{1,3}(?:[.\s]\d{3})+|\d{1,5})[.,](\d{2})(?!\d)(?![.,\/]\d)/g; let m;
+  while((m=re.exec(t))){ const v=Number(m[1].replace(/[.\s]/g,"")+"."+m[2]); if(v>0&&v<100000) out.push({v,i:m.index}); }
+  return out;
+}
+function amountsIn(text){ return amountsAt(text).map(x=>x.v); }
+function findTotal(lines){
+  if(!lines.length) return null;
+  // redreçar: angle mitjà de les línies (en graus, positiu = baixa cap a la dreta)
+  const angs=lines.map(o=>Number(o.a)||0).sort((x,y)=>x-y), rad=angs[angs.length>>1]*Math.PI/180;
+  const L=lines.map(o=>{ const cx=(o.l+o.r)/2, cy=(o.t+o.b)/2;
+    return {text:o.text, x:o.l*Math.cos(rad)+cy*Math.sin(rad), y:cy*Math.cos(rad)-cx*Math.sin(rad), h:Math.max(1,o.b-o.t)}; });
+  const kind=o=>TK.CHANGE.test(o.text)?"change":TK.PAID.test(o.text)?"paid":TK.NOT.test(o.text)?"not":TK.STRONG.test(o.text)?"strong":TK.KEY.test(o.text)?"key":"";
+  L.forEach(o=>o.k=kind(o));
+  const re={change:TK.CHANGE,paid:TK.PAID,strong:TK.STRONG,key:TK.KEY};
+  // l'import d'una etiqueta: el primer darrere la paraula a la mateixa línia; si no, el més proper a la seva fila (a la dreta);
+  // si no, el de just a sota. Les línies amb una altra etiqueta no li presten el seu import.
+  function valueOf(o){
+    const m=o.text.search(re[o.k]); const own=amountsAt(o.text).filter(x=>x.i>=m);
+    if(own.length) return own[0].v;
+    const free=L.filter(p=>p!==o&&!p.k&&amountsAt(p.text).length);
+    const row=free.filter(p=>Math.abs(p.y-o.y)<o.h*0.8&&p.x>o.x).sort((p,q)=>Math.abs(p.y-o.y)-Math.abs(q.y-o.y));
+    if(row.length) return amountsAt(row[0].text)[0].v;
+    const below=free.filter(p=>p.y>o.y&&p.y-o.y<o.h*2.2).sort((p,q)=>p.y-q.y);
+    return below.length?amountsAt(below[0].text)[0].v:null;
+  }
+  const vals=k=>L.filter(o=>o.k===k).map(valueOf).filter(v=>v!=null);
+  const paid=vals("paid"), change=vals("change");
+  const diff=(paid.length&&change.length)?Math.round((Math.max(...paid)-Math.max(...change))*100)/100:null;
+  const everywhere=L.filter(o=>o.k!=="paid"&&o.k!=="change"&&o.k!=="not").flatMap(o=>amountsIn(o.text));
+  const count=v=>everywhere.filter(x=>Math.abs(x-v)<0.005).length;
+  const best=list=>list.reduce((x,v)=>(count(v)>count(x)||(count(v)===count(x)&&v>x))?v:x);
+  let cands=vals("strong"); if(!cands.length) cands=vals("key");
+  if(diff>0&&(!cands.length||cands.some(v=>Math.abs(v-diff)<0.005)||count(diff))) return {amount:diff, sure:true};
+  if(cands.length) return {amount:best(cands), sure:true};
+  return everywhere.length?{amount:best(everywhere), sure:false}:null;
+}
+function headcount(rows){ return rows.reduce((s,r)=>s+(Number(r.adults)||0)+(r.kids||[]).length,0); } // persones reals, no files
+// Versions: "2.10" > "2.9" (número a número, no com a text)
+function cmpVer(a,b){ const pa=String(a||"").replace(/^v/i,"").split(".").map(n=>parseInt(n,10)||0), pb=String(b||"").replace(/^v/i,"").split(".").map(n=>parseInt(n,10)||0);
+  for(let i=0;i<Math.max(pa.length,pb.length);i++){ const d=(pa[i]||0)-(pb[i]||0); if(d) return d>0?1:-1; } return 0; }
+function updState(current,info){
+  if(!info||!info.latest) return {status:"unknown",mandatory:false};
+  const newer=cmpVer(info.latest,current)>0;
+  return {status:newer?"newer":"latest", mandatory:newer && !!info.minRequired && cmpVer(current,info.minRequired)<0};
+}
+function initials(name){ const p=String(name||"").replace(/[^\p{L}\p{N}\s]/gu,"").trim().split(/\s+/); return ((p[0]?.[0]||"")+(p[1]?.[0]||"")).toUpperCase()||"·"; }
 
 function compute(){
   let totalPaid=0,totalUnits=0;
@@ -279,21 +453,179 @@ function settle(res){
   return tx;
 }
 
+/* ESDEVENIMENTS (3.0): funcions pures, les prova tools/test-tot.js */
+const clampInt=(v,lo,hi,d)=>{ const n=parseInt(v,10); return isNaN(n)?d:Math.max(lo,Math.min(hi,n)); };
+const str=(v,max)=>String(v??"").trim().slice(0,max);
+function cleanConfig(c){ const zero=clampInt(c&&c.zero,0,120,3); return {zero, full:Math.max(zero,clampInt(c&&c.full,0,120,12))}; }
+// Neteja una fila que ve de fora (fitxer, núvol): tipus i mides. Mai confiar en el que arriba.
+function cleanRow(r){
+  r=r&&typeof r==="object"?r:{};
+  const tickets=(Array.isArray(r.tickets)?r.tickets:[]).slice(0,200).map(t=>({id:str(t&&t.id,64)||uid(),
+    amount:Math.min(100000,Math.max(0,Math.round((Number(t&&t.amount)||0)*100)/100)),photo:!!(t&&t.photo),...(t&&t.pos!=null?{pos:Number(t.pos)||0}:{})}));
+  const out={id:str(r.id,64)||uid(), name:str(r.name,80), adults:clampInt(r.adults,0,50,0),
+    kids:(Array.isArray(r.kids)?r.kids:[]).slice(0,20).map(a=>parseInt(a,10)).filter(a=>!isNaN(a)&&a>=0&&a<=120),
+    headId:r.headId?str(r.headId,64):null, updatedAt:Number(r.updatedAt)||0, paid:Number(r.paid)||0};
+  if(Array.isArray(r.tickets)) out.tickets=tickets;
+  if(r.ownerUid) out.ownerUid=str(r.ownerUid,128);
+  if(r.pos!=null) out.pos=Number(r.pos)||0;          // ordre al núvol (no canvia mai: si no, esborrar una fila tocaria les dels altres)
+  if(r.updatedBy) out.updatedBy=str(r.updatedBy,128);
+  return normRow(out);
+}
+function cleanEvent(e,now){
+  e=e&&typeof e==="object"?e:{};
+  return {id:str(e.id,64)||uid(), name:str(e.name,80)||"Esdeveniment", config:cleanConfig(e.config),
+    mode:e.mode==="own"?"own":"open", archived:!!e.archived, scenarioOf:e.scenarioOf?str(e.scenarioOf,64):null,
+    createdAt:Number(e.createdAt)||now, updatedAt:Number(e.updatedAt)||now,
+    rows:(Array.isArray(e.rows)?e.rows:[]).slice(0,500).map(cleanRow)};
+}
+function newEvent(name,now,rows,config){ return cleanEvent({name,rows:rows||[],config},now); }
+function hashStr(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0; return (h>>>0).toString(36)+":"+s.length; }
+// v2, v3 = el text de localStorage. Mai es perd res:
+// - un v3 que no s'entén es marca «corrupt» (el qui crida en guarda una còpia) i es comença de nou
+// - si les dades v2 han canviat des de l'última migració (algú ha tornat a la 2.x), entren com un esdeveniment més
+function migrate(v2,v3,now){
+  let st=null, corrupt=false;
+  if(v3){ try{ st=JSON.parse(v3); }catch(e){ corrupt=true; } if(st&&(typeof st!=="object"||!st.events)){ st=null; corrupt=true; } }
+  if(st&&Number(st.schema)>SCHEMA) return {...st, readonly:true};       // d'una versió més nova: no es toca
+  st=st||{schema:SCHEMA,currentId:null,events:{},v2seen:null};
+  st.schema=SCHEMA;
+  Object.keys(st.events).forEach(k=>{ const e=st.events[k]; const c=cleanEvent(e,now);
+    ["cloud","base","roles","memberUids","names","ownerUid","updatedBy"].forEach(f=>{ if(e[f]!==undefined) c[f]=e[f]; });
+    c.id=k; st.events[k]=c; });
+  if(v2&&st.v2seen!==hashStr(v2)){
+    let old=null; try{ old=JSON.parse(v2); }catch(e){}
+    if(old&&Array.isArray(old.rows)&&old.rows.length){
+      const first=!Object.keys(st.events).length;
+      const e=newEvent(first?"Calçotada":"Calçotada (de la versió anterior)",now,old.rows,old.config);
+      st.events[e.id]=e; if(first) st.currentId=e.id;
+    }
+    st.v2seen=hashStr(v2);
+  }
+  if(st.currentId&&!st.events[st.currentId]) st.currentId=null;
+  if(corrupt) st.corrupt=true;
+  return st;
+}
+// Còpia amb identificadors nous (duplicar, escenaris, importar com a nou). photos = {idTiquetVell: idNou} per copiar-ne les fotos.
+function cloneEvent(e,over,now){
+  const ids={}, photos={};
+  e.rows.forEach(r=>ids[r.id]=uid());
+  const rows=e.rows.map(r=>({id:ids[r.id], name:r.name, adults:r.adults, kids:[...(r.kids||[])], headId:r.headId&&ids[r.headId]||null,
+    updatedAt:now, tickets:(r.tickets||[]).map(t=>{ const n=uid(); if(t.photo) photos[t.id]=n; return {id:n,amount:t.amount,photo:!!t.photo}; })}));
+  return {event:cleanEvent({name:e.name,config:e.config,mode:e.mode,scenarioOf:e.scenarioOf,rows,...over,id:uid(),createdAt:now,updatedAt:now},now), photos};
+}
+const rowKey=r=>JSON.stringify([r.name,r.adults,r.kids,r.headId||null,(r.tickets||[]).map(t=>[t.id,t.amount,!!t.photo])]);
+// Fusionar: per id. El que falta s'afegeix; si una fila és diferent, mana la més recent (updatedAt) i els tiquets s'ajunten per id.
+function mergeEvent(a,b){
+  const out={...a, rows:a.rows.map(r=>({...r,kids:[...r.kids],tickets:r.tickets.map(t=>({...t}))}))};
+  let added=0,updated=0,same=0;
+  b.rows.forEach(rb=>{
+    const ra=out.rows.find(r=>r.id===rb.id);
+    if(!ra){ out.rows.push({...rb,tickets:rb.tickets.map(t=>({...t}))}); added++; return; }
+    if(rowKey(ra)===rowKey(rb)){ same++; return; }
+    const newer=(rb.updatedAt||0)>(ra.updatedAt||0);
+    if(newer) Object.assign(ra,{name:rb.name,adults:rb.adults,kids:[...rb.kids],headId:rb.headId,updatedAt:rb.updatedAt});
+    rb.tickets.forEach(tb=>{ const i=ra.tickets.findIndex(t=>t.id===tb.id); if(i<0) ra.tickets.push({...tb}); else if(newer) ra.tickets[i]={...tb}; });
+    normRow(ra); updated++;
+  });
+  return {event:out,added,updated,same};
+}
+function exportData(events,now){
+  return {app:"calculs-canet", schema:SCHEMA, exportedAt:new Date(now).toISOString(),
+    events:events.map(e=>({id:e.id,name:e.name,config:e.config,mode:e.mode,archived:e.archived,scenarioOf:e.scenarioOf,createdAt:e.createdAt,updatedAt:e.updatedAt,
+      rows:e.rows.map(r=>({id:r.id,name:r.name,adults:r.adults,kids:r.kids,headId:r.headId||null,updatedAt:r.updatedAt||0,
+        tickets:(r.tickets||[]).map(t=>({id:t.id,amount:t.amount,photo:!!t.photo}))}))}))};
+}
+// Accepta les còpies de la 3.0 i el format de la 2.x ({config, rows}). Llança un Error amb el missatge per a l'usuari.
+function parseImport(o,now){
+  if(o&&Array.isArray(o.rows)&&!o.events) o={app:"calculs-canet",schema:2,events:[{name:"Importat",config:o.config,rows:o.rows}]};
+  if(!o||o.app!=="calculs-canet"||!Array.isArray(o.events)) throw new Error("Aquest fitxer no és una còpia de Càlculs Canet.");
+  if(Number(o.schema)>SCHEMA) throw new Error("Aquest fitxer és d'una versió més nova de l'app. Actualitza-la per importar-lo.");
+  if(!o.events.length) throw new Error("El fitxer no té cap esdeveniment.");
+  return o.events.slice(0,200).map(e=>cleanEvent(e,now));
+}
+const num2=n=>(Math.round((Number(n)||0)*100)/100).toFixed(2).replace(".",",");
+// Resum de l'esdeveniment obert en CSV (separat per «;», com el vol l'Excel en català/castellà)
+function toCSV(){
+  const c=compute(), tx=settle(c.res), q=s=>'"'+String(s).replace(/"/g,'""')+'"';
+  const L=[["Qui paga","A qui","Import (€)"].map(q).join(";")];
+  tx.forEach(t=>L.push([q(t.from),q(t.to),num2(t.amount)].join(";")));
+  L.push("",["Persona o família","Adults","Nens","Ha pagat (€)","Li toca (€)","Saldo (€)"].map(q).join(";"));
+  c.res.forEach(r=>L.push([q(r.name),r.adults,(r.kids||[]).length,num2(r.paid),num2(r.fair),num2(r.bal)].join(";")));
+  L.push("",[q("Total pagat"),"","",num2(c.totalPaid),"",""].join(";"),[q("Per adult"),"","","",num2(c.cpu),""].join(";"));
+  return L.join("\r\n");
+}
+/* NÚVOL: cada fila i cada tiquet és un document propi (dues persones tocant coses diferents no es trepitgen) */
+// Els documents d'un esdeveniment tal com van a Firestore (sense qui/quan: això s'hi posa en enviar)
+function docsOf(e){
+  const rows={}, tickets={};
+  e.rows.forEach((r,i)=>{
+    rows[r.id]={name:r.name, adults:Number(r.adults)||0, kids:(r.kids||[]).map(Number), headId:r.headId||null, pos:r.pos??i, ownerUid:r.ownerUid||null};
+    (r.tickets||[]).forEach((t,j)=>{ tickets[t.id]={rowId:r.id, amount:Number(t.amount)||0, photo:!!t.photo, pos:t.pos??j, ownerUid:r.ownerUid||null}; });
+  });
+  return {meta:{name:e.name, config:{zero:e.config.zero, full:e.config.full}, mode:e.mode||"open", scenarioOf:e.scenarioOf||null}, rows, tickets};
+}
+const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+// Què cal escriure per passar de «a» (el que hi ha al núvol) a «b» (el que hi ha ara). update = només els camps canviats.
+function diffDocs(a,b){
+  const ops=[];
+  if(a.meta&&!same(a.meta,b.meta)){ const d={}; Object.keys(b.meta).forEach(k=>{ if(!same(a.meta[k],b.meta[k])) d[k]=b.meta[k]; }); ops.push({col:"meta",op:"update",data:d}); }
+  ["rows","tickets"].forEach(col=>{
+    const A=a[col]||{}, B=b[col]||{};
+    Object.keys(B).forEach(id=>{
+      if(!A[id]) ops.push({col,id,op:"set",data:B[id]});
+      else if(!same(A[id],B[id])){ const d={}; Object.keys(B[id]).forEach(k=>{ if(!same(A[id][k],B[id][k])) d[k]=B[id][k]; }); ops.push({col,id,op:"update",data:d}); }
+    });
+    Object.keys(A).forEach(id=>{ if(!B[id]) ops.push({col,id,op:"delete"}); });
+  });
+  // primer les files i després els tiquets; en esborrar, primer els tiquets
+  const w=o=>o.op==="delete"?(o.col==="tickets"?3:4):(o.col==="rows"?1:o.col==="tickets"?2:0);
+  return ops.sort((x,y)=>w(x)-w(y));
+}
+// Del que arriba del núvol ({id: dades}) a files amb els seus tiquets. Es neteja tot (pot venir de qualsevol membre).
+// En mode «cadascú el seu», un tiquet només compta a la fila del mateix propietari.
+function assemble(rowDocs,ticketDocs,mode){
+  const rows=Object.entries(rowDocs).map(([id,d])=>cleanRow({...d,id,pos:Number(d.pos)||0,tickets:[]})).sort((a,b)=>a.pos-b.pos||(a.id<b.id?-1:1));
+  const by=Object.fromEntries(rows.map(r=>[r.id,r]));
+  Object.entries(ticketDocs).map(([id,d])=>({id,d})).sort((a,b)=>(Number(a.d.pos)||0)-(Number(b.d.pos)||0)||(a.id<b.id?-1:1)).forEach(({id,d})=>{
+    const r=by[d.rowId]; if(!r) return;
+    if(mode==="own"&&(d.ownerUid||null)!==(r.ownerUid||null)) return;
+    r.tickets.push(cleanRow({tickets:[{id,amount:d.amount,photo:d.photo,pos:Number(d.pos)||0}]}).tickets[0]);
+  });
+  rows.forEach(normRow);
+  return rows;
+}
+// Qui pot fer què (la veritat la tenen les regles de Firestore; això és per no oferir el que fallarà)
+function roleOf(e,uid){ return !e.cloud?"owner":(e.roles&&e.roles[uid])||null; }
+function canEditRowOf(e,uid,r){ const ro=roleOf(e,uid); return ro==="owner"||(ro==="editor"&&(e.mode!=="own"||!r||!r.id||(r.ownerUid||null)===uid)); }
+function canAddRowOf(e,uid){ const ro=roleOf(e,uid); return ro==="owner"||ro==="editor"; }
+
+// Escenaris: saldo de cada persona a l'original i a l'escenari (per id, i si no, pel nom)
+function compareEvents(a,b){
+  const run=e=>{ const s=state; state=e; try{ return compute(); } finally{ state=s; } };
+  const ca=run(a), cb=run(b), out=[];
+  cb.res.forEach(r=>{ const o=ca.res.find(x=>x.id===r.id)||ca.res.find(x=>x.name.trim().toLowerCase()===r.name.trim().toLowerCase());
+    out.push({name:r.name, before:o?o.bal:null, after:r.bal}); });
+  ca.res.forEach(o=>{ if(!out.some(x=>x.before===o.bal&&x.name===o.name)&&!cb.res.some(r=>r.id===o.id||r.name.trim().toLowerCase()===o.name.trim().toLowerCase())) out.push({name:o.name,before:o.bal,after:null}); });
+  return {rows:out, cpu:[ca.cpu,cb.cpu], total:[ca.totalPaid,cb.totalPaid]};
+}
+
 function renderHead(){
   const c=compute();
   $("#sTotal").textContent=money(c.totalPaid);
-  $("#sPeople").textContent=state.rows.length;
+  $("#sPeople").textContent=headcount(state.rows);
   $("#sUnit").textContent=money(c.cpu);
 }
 function compMeta(r){
   const ad=Number(r.adults)||0; const nk=(r.kids||[]).length;
   let s=ad+(ad===1?" adult":" adults");
   if(nk) s+=" · "+nk+(nk===1?" nen":" nens");
+  const nt=(r.tickets||[]).length; if(nt>1) s+=" · "+nt+" tiquets";
   if(r.headId && state.rows.some(x=>x.id===r.headId)) s+=" · va amb "+nameById(r.headId).split(" ")[0];
   return s;
 }
 function renderList(){
   const c=compute(); const box=$("#people");
+  $("#addBtn").hidden=!Sync.canAddRow(state);
   if(!state.rows.length){ box.innerHTML='<div class="empty">Encara no hi ha ningú.<br>Afegeix la primera persona.</div>'; return; }
   box.innerHTML=state.rows.map((r,idx)=>{
     const rr=c.res[idx]; const cls=rr.bal>0.005?"pos":rr.bal<-0.005?"neg":"zero";
@@ -303,10 +635,10 @@ function renderList(){
       <div class="mono">${esc(initials(r.name))}</div>
       <div style="min-width:0;flex:1">
         <div class="nm">${esc(r.name||"(sense nom)")}</div>
-        <div class="meta">${esc(compMeta(r))} · part justa ${money(rr.fair)}</div>
+        <div class="meta">${esc(compMeta(r))} · li toca pagar ${money(rr.fair)}</div>
       </div>
       <div class="amt">
-        <div class="p num">${money(r.paid)}</div>
+        <div class="k">ha pagat</div><div class="p num">${money(r.paid)}</div>
         <div class="bal ${cls} num">${balTxt}</div>
       </div>
     </div></div>`;
@@ -327,7 +659,7 @@ function renderRes(){
     const cls=r.bal>0.005?"pos":r.bal<-0.005?"neg":"zero"; const sign=r.bal>0.005?"+":"";
     const withHead=(r.headId && state.rows.some(x=>x.id===r.headId))?" · amb "+esc(nameById(r.headId).split(" ")[0]):"";
     return `<div class="balrow"><div class="mono" style="width:34px;height:34px;font-size:12px">${esc(initials(r.name))}</div>
-      <div><div class="nm">${esc(r.name)}</div><div class="meta">pagat ${money(r.paid)} · just ${money(r.fair)}${withHead}</div></div>
+      <div><div class="nm">${esc(r.name)}</div><div class="meta">ha pagat ${money(r.paid)} · li tocava ${money(r.fair)}${withHead}</div></div>
       <span class="b ${cls} num">${sign}${money(r.bal)}</span></div>`;
   }).join("");
   box.innerHTML=`
@@ -339,41 +671,123 @@ function renderRes(){
     <div class="hint"><b style="color:var(--pos)">Verd</b>: li deuen diners. <b style="color:var(--neg)">Vermell</b>: ha de posar diners. Els qui van amb un cap de família es liquiden junts a través seu.</div>`;
   $("#shareBtn")?.addEventListener("click",share);
 }
-function renderAll(){ renderHead(); renderList(); renderRes(); save(); }
+// Pinta i desa. paint() només pinta: és el que fan servir els canvis que arriben del núvol (no es tornen a enviar).
+function paint(){
+  renderTitle();
+  if(state){ renderHead(); renderList(); renderRes(); } else renderHome();
+}
+function renderAll(){ if(state) state.updatedAt=Date.now(); paint(); save(); Photos.gc(); }
+function renderTitle(){
+  $("#title").textContent=state?state.name:"Càlculs Canet";
+  const sc=state&&state.scenarioOf&&store.events[state.scenarioOf];
+  $("#subTxt").textContent=!state?"Els teus esdeveniments":state.scenarioOf?"Escenari"+(sc?" de "+sc.name:""):"Repartiment de despeses";
+  $("#backBtn").hidden=!state;
+  Sync.paintStatus();
+}
 
 /* NAV */
-$("#t1").innerHTML=IC.list; $("#t2").innerHTML=IC.swap;
+$("#t1").innerHTML=IC.list; $("#t2").innerHTML=IC.swap; $("#backBtn").innerHTML=IC.back;
 $("#settingsBtn").innerHTML=IC.gear; $("#addBtn").innerHTML=IC.plus+"<span>Afegir persona</span>";
-$$(".tab").forEach(t=>t.addEventListener("click",()=>{
-  $$(".tab").forEach(x=>x.classList.toggle("on",x===t));
-  $$(".view").forEach(v=>v.classList.toggle("on",v.id==="v-"+t.dataset.v));
-  window.scrollTo({top:0,behavior:"smooth"});
-}));
+$("#newEv").innerHTML=IC.plus+"<span>Nou esdeveniment</span>";
+$("#subtitle").innerHTML='<span id="subTxt"></span><span id="syncSt"></span>';
+function showView(v){
+  $$(".tab").forEach(x=>x.classList.toggle("on",x.dataset.v===v));
+  $$(".view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+  window.scrollTo({top:0});
+}
+$$(".tab").forEach(t=>t.addEventListener("click",()=>showView(t.dataset.v)));
+function openEvent(id){
+  if(!store.events[id]) return goHome();
+  store.currentId=id; state=store.events[id];
+  document.body.classList.remove("home"); showView("list"); closeSheet(); paint(); save();
+  Sync.watch(state);
+}
+function goHome(){ store.currentId=null; state=null; document.body.classList.add("home"); showView("home"); closeSheet(); paint(); save(); Sync.watch(null); }
+$("#backBtn").addEventListener("click",goHome);
+
+/* INICI: llista d'esdeveniments */
+function summaryOf(e){ const s=state; state=e; try{ const c=compute(); return {total:c.totalPaid,people:headcount(e.rows),cpu:c.cpu}; } finally{ state=s; } }
+function renderHome(){
+  const all=Object.values(store.events).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+  const card=e=>{ const s=summaryOf(e);
+    const meta=s.people+(s.people===1?" persona":" persones")+" · "+money(s.total)+(s.people?" · "+money(s.cpu)+" per adult":"");
+    return `<div class="card"><div class="ev">
+      <button class="open" data-open="${e.id}"><div class="nm">${esc(e.name)}${e.scenarioOf?'<span class="tag">Escenari</span>':""}${e.cloud?'<span class="tag cloud">'+(Object.keys(e.roles||{}).length>1?"Compartit":"Al núvol")+'</span>':""}</div>
+        <div class="meta num">${esc(meta)}</div></button>
+      <button class="more" data-evmenu="${e.id}" aria-label="Opcions de ${esc(e.name)}">${IC.more}</button></div></div>`; };
+  const act=all.filter(e=>!e.archived), arc=all.filter(e=>e.archived);
+  $("#events").innerHTML=act.length?act.map(card).join("")
+    :'<div class="empty">Encara no hi ha cap esdeveniment.<br>Crea el primer: una calçotada, un sopar, un viatge…</div>';
+  $("#archived").innerHTML=arc.length?'<div class="sect" style="margin-top:18px">Arxivats</div>'+arc.map(card).join(""):"";
+}
+$("#newEv").addEventListener("click",async()=>{
+  const name=await askText("Nou esdeveniment","Nom","","Crear",'Per exemple «Calçotada 2026»');
+  if(name==null) return;
+  const e=newEvent(name,Date.now()); store.events[e.id]=e; openEvent(e.id); toast("Creat «"+e.name+"»");
+});
+document.addEventListener("click",e=>{
+  const o=e.target.closest("[data-open]"); if(o) return openEvent(o.dataset.open);
+  const m=e.target.closest("[data-evmenu]"); if(m) eventMenu(m.dataset.evmenu);
+});
 
 /* SHEET */
-function openSheet(html){ $("#sheetBody").innerHTML=html; $("#scrim").classList.add("on"); $("#sheet").classList.add("on"); }
-function closeSheet(){ $("#scrim").classList.remove("on"); $("#sheet").classList.remove("on"); }
-$("#scrim").addEventListener("click",closeSheet);
-function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),2000); }
+function openSheet(html,locked){ const f=onSheetClose; onSheetClose=null; if(f) f(); $("#sheet").dataset.locked=locked?"1":""; $("#sheetBody").innerHTML=html; $("#scrim").classList.add("on"); $("#sheet").classList.add("on"); }
+let onSheetClose=null;
+function closeSheet(){ $("#scrim").classList.remove("on"); $("#sheet").classList.remove("on"); const f=onSheetClose; onSheetClose=null; if(f) f(); }
+$("#scrim").addEventListener("click",()=>{ if(!$("#sheet").dataset.locked) closeSheet(); });
+function toast(m,ms){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),ms||Math.max(2000,m.length*55)); }
+// Confirmació en una fulla (no el confirm() del sistema). Resol true/false; tancar-la és «no».
+function ask(title,text,okLabel,danger){
+  return new Promise(res=>{
+    openSheet(`<div class="head"><h2>${esc(title)}</h2></div><p style="margin:0 0 18px">${esc(text)}</p>
+      <button class="btn ${danger?"btn-danger":"btn-primary"}" id="aOk">${esc(okLabel)}</button>
+      <button class="btn btn-ghost" id="aNo" style="margin-top:9px">Cancel·lar</button>`);
+    onSheetClose=()=>res(false);
+    $("#aOk").onclick=()=>{ onSheetClose=null; closeSheet(); res(true); };
+    $("#aNo").onclick=closeSheet;
+  });
+}
+// Demana un text. Resol el text (no buit) o null.
+function askText(title,label,value,okLabel,hint){
+  return new Promise(res=>{
+    openSheet(`<div class="head"><h2>${esc(title)}</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+      <div class="grp"><label class="lab2" for="aTxt">${esc(label)}</label><input class="fld" id="aTxt" maxlength="80" value="${esc(value)}" placeholder="${esc(hint||"")}"></div>
+      <button class="btn btn-primary" id="aOk">${esc(okLabel)}</button>`);
+    onSheetClose=()=>res(null);
+    const inp=$("#aTxt"); setTimeout(()=>inp.focus(),250);
+    const ok=()=>{ const v=inp.value.trim(); if(!v){ toast("Escriu un nom"); return; } onSheetClose=null; closeSheet(); res(v); };
+    $("#aOk").onclick=ok; inp.onkeydown=e=>{ if(e.key==="Enter") ok(); }; $("#x").onclick=closeSheet;
+  });
+}
 
 /* PERSON FORM */
 function personForm(id){
-  const r=id?state.rows.find(x=>x.id===id):{id:null,name:"",paid:"",adults:1,kids:[]};
+  const r=id&&state.rows.find(x=>x.id===id)||{id:null,name:"",paid:0,adults:1,kids:[],tickets:[]};
+  if(id&&!r.id) return toast("Aquesta fila ja no hi és");
+  const orig=JSON.parse(JSON.stringify(r)); editing=id?{id,key:rowKey(r)}:null;
   let kids=[...(r.kids||[])];
+  // còpia: res es guarda fins a «Desar» (les fotos noves que no es desin s'esborren soles)
+  let tks=(r.tickets||[]).map(t=>({...t,amount:t.amount?String(t.amount).replace(".",","):""}));
+  if(!tks.length) tks.push({id:uid(),amount:"",photo:false});
   openSheet(`
-    <div class="head"><h2>${id?"Editar persona":"Nova persona"}</h2><button id="x">${IC.close}</button></div>
+    <div class="head"><h2>${id?"Editar persona":"Nova persona"}</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+    <div id="formNotice">${id&&r.updatedBy&&Sync.uid()&&r.updatedBy!==Sync.uid()?`<div class="hint" style="margin:-8px 2px 12px">Últim canvi: ${esc(Sync.nameOf(r.updatedBy)||"un altre membre")}</div>`:""}</div>
     <div class="grp"><label class="lab2">Nom</label>
-      <input class="fld" id="fName" placeholder="Nom de la persona o família" value="${esc(r.name)}"></div>
-    <div class="grp"><label class="lab2">Ha pagat (€)</label>
-      <input class="fld num" id="fPaid" type="text" inputmode="decimal" placeholder="0,00" value="${r.paid!==""&&r.paid!=null?String(r.paid).replace(".",","):""}"></div>
-    <div class="grp"><label class="lab2">Adults</label>
-      <div class="stepper" style="max-width:200px"><button id="aMinus">−</button><input class="num" id="fAdults" type="text" inputmode="numeric" value="${Number(r.adults)||0}"><button id="aPlus">+</button></div></div>
-    <label class="lab2">Nens (posa l'edat de cadascun)</label>
+      <input class="fld" id="fName" maxlength="80" placeholder="Nom de la persona o família" value="${esc(r.name)}"></div>
+    <div class="grp"><label class="lab2">Tiquets que ha pagat</label>
+      <div id="tickets"></div>
+      <button class="addkid" id="addTk">${IC.plus}<span>Afegir tiquet</span></button>
+      <div class="tktot"><span>Total pagat</span><span class="num" id="tkTot"></span></div>
+      <div class="hint" style="margin:6px 2px 0">Afegeix cada tiquet quan el pagui, amb la foto si vols. El total se suma sol.</div></div>
+    <div class="grp"><label class="lab2">Adults d'aquesta fila (tu inclòs)</label>
+      <div class="stepper" style="max-width:200px"><button id="aMinus" aria-label="Un adult menys">−</button><input class="num" id="fAdults" type="text" inputmode="numeric" value="${Number(r.adults)||0}"><button id="aPlus" aria-label="Un adult més">+</button></div></div>
+    <label class="lab2">Nens (edat de cadascun)</label>
     <div id="kids"></div>
     <button class="addkid" id="addKid">${IC.plus}<span>Afegir nen</span></button>
-    <div class="grp" style="margin-top:16px"><label class="lab2">Qui se'n fa càrrec? (cap de família)</label>
-      <select class="fld" id="fHead"><option value="">— Es paga ell mateix —</option>${state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===r.headId?"selected":""}>${esc(x.name)}</option>`).join("")}<option value="__new__">+ Crear nova persona com a cap…</option></select>
-      <div class="hint" style="margin:6px 2px 0">Si tries algú, aquesta persona va amb ell: s'ajunten els saldos i no es deuen res entre ells. Qui no tingui cap, paga ell mateix.</div></div>
+    <div class="hint" style="margin:0 2px 0">El percentatge és quant paga el nen respecte a un adult. Es canvia a Ajustos.</div>
+    <div class="grp" style="margin-top:16px"><label class="lab2">Hi ha algú que paga per aquesta fila? (cap de família)</label>
+      <select class="fld" id="fHead"><option value="">— No, es paga ell mateix —</option>${state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===r.headId?"selected":""}>${esc(x.name)}</option>`).join("")}<option value="__new__">+ Crear nova persona com a cap…</option></select>
+      <div class="hint" style="margin:6px 2px 0">Si tries algú, s'ajunten els saldos de tots dos i no es deuen res entre ells: només paga o cobra el cap.</div></div>
     <button class="btn btn-primary" id="saveP" style="margin-top:16px">${id?"Desar":"Afegir"}</button>
     ${id?`<button class="btn" id="delP" style="margin-top:9px;color:var(--neg);background:var(--neg-bg)">Eliminar</button>`:""}
   `);
@@ -384,20 +798,49 @@ function personForm(id){
       const w=kidWeight(age);
       return `<div class="kid"><input class="fld num" type="text" inputmode="numeric" data-k="${i}" placeholder="edat" value="${age??""}">
         <span class="w ${pctClass(w)}">${pctTxt(w)}</span>
-        <button class="del" data-dk="${i}">${IC.trash}</button></div>`;
+        <button class="del" data-dk="${i}" aria-label="Treure aquest nen">${IC.trash}</button></div>`;
     }).join("");
     $$("[data-k]").forEach(inp=>inp.addEventListener("input",e=>{ kids[+e.target.dataset.k]=e.target.value===""?"":parseInt(e.target.value,10);
       const w=kidWeight(kids[+e.target.dataset.k]); const tag=e.target.nextElementSibling; tag.className="w "+pctClass(w); tag.textContent=pctTxt(w); }));
     $$("[data-dk]").forEach(b=>b.addEventListener("click",()=>{ kids.splice(+b.dataset.dk,1); drawKids(); }));
   }
   drawKids();
-  $("#x").onclick=closeSheet;
+  function drawTotal(){ $("#tkTot").textContent=money(ticketsTotal(tks.map(t=>({amount:parseAmount(t.amount)})))); }
+  function drawTickets(){
+    $("#tickets").innerHTML=tks.map((t,i)=>`<div class="tk">
+        <button class="ph" data-ph="${i}" aria-label="${t.photo?"Veure la foto del tiquet":"Afegir foto del tiquet"}">${t.photo?"":IC.camera}</button>
+        <input class="fld num${t.ocr?" ocr":""}" type="text" inputmode="decimal" data-ta="${i}" placeholder="${t.reading?"Llegint el tiquet…":"0,00 €"}" value="${esc(t.amount)}" aria-label="Import del tiquet ${i+1}">
+        <button class="del" data-dt="${i}" aria-label="Treure aquest tiquet">${IC.trash}</button></div>`).join("");
+    tks.forEach((t,i)=>{ if(t.photo) Photos.url(t.id).then(u=>{ const b=$(`[data-ph="${i}"]`); if(b&&u) b.innerHTML=`<img src="${u}" alt="">`; else if(b) b.innerHTML=IC.camera; }); });
+    $$("[data-ta]").forEach(inp=>inp.addEventListener("input",e=>{ const t=tks[+e.target.dataset.ta]; t.amount=e.target.value; t.ocr=false; e.target.classList.remove("ocr"); drawTotal(); }));
+    $$("[data-dt]").forEach(b=>b.addEventListener("click",()=>{ tks.splice(+b.dataset.dt,1); drawTickets(); }));
+    $$("[data-ph]").forEach(b=>b.addEventListener("click",()=>{ const t=tks[+b.dataset.ph];
+      if(t.photo) Photos.view(t.id,()=>{ t.photo=false; drawTickets(); });
+      else Photos.pick(t.id,blob=>{ t.photo=true; drawTickets(); readTotal(t,blob); }); }));
+    drawTotal();
+  }
+  // Llegeix el total de la foto i l'omple, només si l'import encara és buit. Sempre es pot corregir.
+  async function readTotal(t,blob){
+    if(!Ocr.P||String(t.amount).trim()!=="") return;
+    const box=$("#tickets"); t.reading=true; drawTickets();
+    let res=null; try{ res=await Ocr.total(blob); }catch(e){}
+    t.reading=false;
+    if(!tks.includes(t)||!box.isConnected) return;       // l'han tret o ha tancat el formulari mentre llegia
+    if(res&&String(t.amount).trim()===""){               // si mentrestant l'ha escrit a mà, mana el seu
+      t.amount=res.amount.toFixed(2).replace(".",","); t.ocr=true;
+      toast(res.sure?"He llegit "+money(res.amount)+" del tiquet. Revisa que sigui bo.":"No trobo la paraula «total»: he posat l'import més gran ("+money(res.amount)+"). Revisa-ho.");
+    } else if(!res) toast("No he pogut llegir el total. Escriu-lo a mà.");
+    drawTickets();
+  }
+  drawTickets();
+  $("#addTk").onclick=()=>{ tks.push({id:uid(),amount:"",photo:false}); drawTickets(); $(`[data-ta="${tks.length-1}"]`).focus(); };
+  $("#x").onclick=()=>{ editing=null; closeSheet(); };
   $("#addKid").onclick=()=>{ kids.push(""); drawKids(); };
   const adInput=$("#fAdults");
   $("#aMinus").onclick=()=>{ adInput.value=Math.max(0,(parseInt(adInput.value,10)||0)-1); };
   $("#aPlus").onclick=()=>{ adInput.value=(parseInt(adInput.value,10)||0)+1; };
   function rebuildHeadOptions(selId){
-    $("#fHead").innerHTML='<option value="">— Es paga ell mateix —</option>'
+    $("#fHead").innerHTML='<option value="">— No, es paga ell mateix —</option>'
       +state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===selId?"selected":""}>${esc(x.name)}</option>`).join("")
       +'<option value="__new__">+ Crear nova persona com a cap…</option>';
   }
@@ -405,7 +848,7 @@ function personForm(id){
     if(this.value==="__new__"){
       const nm=prompt("Nom de qui se'n fa càrrec (cap de família):");
       if(nm && nm.trim()){
-        const h={id:uid(),name:nm.trim(),paid:0,adults:0,kids:[],headId:null};
+        const h={id:uid(),name:nm.trim().slice(0,80),paid:0,adults:0,kids:[],tickets:[],headId:null,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined};
         state.rows.push(h); save(); rebuildHeadOptions(h.id);
         toast("Cap creat: "+h.name+" — edita'l després si vols posar-hi el que ha pagat");
       } else { this.value=r.headId||""; }
@@ -413,49 +856,286 @@ function personForm(id){
   });
   $("#saveP").onclick=()=>{
     const name=$("#fName").value.trim(); if(!name){ toast("Posa un nom"); return; }
-    const paid=parseFloat(($("#fPaid").value||"").replace(",","."))||0;
+    // un tiquet sense import però amb foto es guarda (s'hi pot posar l'import després)
+    const tickets=tks.filter(t=>t.photo||String(t.amount).trim()!=="").map(t=>({id:t.id,amount:parseAmount(t.amount),photo:!!t.photo}));   // ocr/reading no es guarden
     const adults=Math.max(0,parseInt(adInput.value,10)||0);
     const cleanKids=kids.map(a=>a===""||a==null?null:parseInt(a,10)).filter(a=>a!=null&&!isNaN(a)&&a>=0);
     const headId=$("#fHead").value||null;
-    if(id){ Object.assign(state.rows.find(x=>x.id===id),{name,paid,adults,kids:cleanKids,headId}); }
-    else{ state.rows.push({id:uid(),name,paid,adults,kids:cleanKids,headId}); }
-    closeSheet(); renderAll(); toast("Desat");
+    const cur=id&&state.rows.find(x=>x.id===id);
+    if(cur){
+      // Només el que has canviat tu: si mentrestant algú altre ha tocat un altre camp o un altre tiquet, es conserva
+      const mine={name,adults,kids:cleanKids,headId};
+      Object.keys(mine).forEach(k=>{ if(JSON.stringify(mine[k])!==JSON.stringify(orig[k]??null)) cur[k]=mine[k]; });
+      const was=Object.fromEntries((orig.tickets||[]).map(t=>[t.id,t]));
+      cur.tickets=cur.tickets.filter(t=>!was[t.id]||tickets.some(n=>n.id===t.id));            // els que has tret
+      tickets.forEach(n=>{ const o=was[n.id], i=cur.tickets.findIndex(t=>t.id===n.id);
+        if(o&&o.amount===n.amount&&!!o.photo===n.photo) return;                                // no l'has tocat
+        if(i<0) cur.tickets.push(n); else cur.tickets[i]=n; });
+      cur.updatedAt=Date.now(); normRow(cur);
+    } else {
+      state.rows.push(normRow({id:id||uid(),name,tickets,adults,kids:cleanKids,headId,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined}));
+    }
+    editing=null; closeSheet(); renderAll(); toast(cur||!id?"Desat":"Desat (algú l'havia esborrat i l'he tornat a crear)");
   };
-  $("#delP")&&($("#delP").onclick=()=>{ state.rows=state.rows.filter(x=>x.id!==id); closeSheet(); renderAll(); toast("Eliminat"); });
+  $("#delP")&&($("#delP").onclick=async()=>{
+    if(!await ask("Eliminar «"+r.name+"»?","Se n'esborren els tiquets i el que ha pagat. No es pot desfer.","Eliminar",true)) return personForm(id);
+    state.rows=state.rows.filter(x=>x.id!==id); state.rows.forEach(x=>{ if(x.headId===id) x.headId=null; });
+    editing=null; renderAll(); toast("Eliminat"); });
+  if(!Sync.canEditRow(r)){
+    $$("#sheetBody input,#sheetBody select,#sheetBody .del,#addTk,#addKid,#aMinus,#aPlus,#saveP,#delP").forEach(x=>{ x.disabled=true; if(x.id==="saveP"||x.id==="delP"||x.id==="addTk"||x.id==="addKid") x.hidden=true; });
+    $("#formNotice").innerHTML='<div class="notice">Només la pot canviar qui la va afegir o el propietari de l\'esdeveniment.</div>';
+  }
+}
+// La fila que hi ha oberta al formulari: si algú altre la canvia mentre l'edites, surt un avís (no es trepitja el que escrius)
+let editing=null;
+function checkEditing(){
+  if(!editing||!$("#sheet").classList.contains("on")) return;
+  const now=state&&state.rows.find(x=>x.id===editing.id), box=$("#formNotice"); if(!box) return;
+  if(!now) box.innerHTML='<div class="notice">Algú ha esborrat aquesta fila. Si la deses, es tornarà a crear.</div>';
+  else if(rowKey(now)!==editing.key) box.innerHTML=`<div class="notice">${esc(Sync.nameOf(now.updatedBy)||"Algú")} ha canviat aquesta fila. En desar només es guarda el que hagis tocat tu.</div>`;
 }
 $("#addBtn").addEventListener("click",()=>personForm(null));
 document.addEventListener("click",e=>{ const c=e.target.closest("[data-edit]"); if(c) personForm(c.dataset.edit); });
 
-/* SETTINGS */
+/* FOTOS DELS TIQUETS: a IndexedDB (localStorage és massa petit), una per tiquet, amb el mateix id.
+   Es redueixen a 1600 px en JPEG: llegibles i d'uns 200-400 kB. */
+const Photos={
+  db:null, urls:{}, // shortcut: les URL de les miniatures no s'alliberen fins que es tanca l'app; n'hi ha poques
+  open(){ return this.db||(this.db=new Promise((ok,ko)=>{ const q=indexedDB.open("cc_photos",1);
+    q.onupgradeneeded=()=>q.result.createObjectStore("p"); q.onsuccess=()=>ok(q.result); q.onerror=()=>ko(q.error); })); },
+  async tx(mode,fn){ const db=await this.open(); return new Promise((ok,ko)=>{ const t=db.transaction("p",mode), q=fn(t.objectStore("p"));
+    t.oncomplete=()=>ok(q.result); t.onerror=()=>ko(t.error); }); },
+  put(id,blob){ delete this.urls[id]; return this.tx("readwrite",s=>s.put(blob,id)); },
+  async url(id){ if(this.urls[id]) return this.urls[id]; try{ const b=await this.tx("readonly",s=>s.get(id)); if(b) return (this.urls[id]=URL.createObjectURL(b)); }catch(e){}
+    const t=await Sync.thumbUrl(id); return t?(this.urls[id]=t):null; },   // la foto la té un altre membre: la miniatura del núvol
+  // Miniatura per al núvol: 640 px, grisos, JPEG (uns 30-60 kB; el límit d'un document de Firestore és 1 MB)
+  async thumb(id){ try{
+    const b=await this.tx("readonly",s=>s.get(id)); if(!b) return null;
+    const img=await createImageBitmap(b), k=Math.min(1,640/Math.max(img.width,img.height)), c=document.createElement("canvas");
+    c.width=Math.round(img.width*k); c.height=Math.round(img.height*k);
+    const g=c.getContext("2d"); g.filter="grayscale(1)"; g.drawImage(img,0,0,c.width,c.height);
+    for(const q of [0.6,0.4,0.25]){ const u=c.toDataURL("image/jpeg",q); if(u.length<190000) return u; }
+    return null; }catch(e){ return null; } },
+  // esborra les fotos que ja no són de cap tiquet desat (tiquets o persones eliminats, formularis cancel·lats)
+  // còpia de fotos per a esdeveniments duplicats: {idVell: idNou}
+  async copy(map){ for(const [a,b] of Object.entries(map||{})){ try{ const bl=await this.tx("readonly",s=>s.get(a)); if(bl) await this.put(b,bl); }catch(e){} } },
+  // de TOTS els esdeveniments (no només l'obert), i mai si les dades són d'una versió més nova (no les entenem)
+  async gc(){ if(store.readonly) return; try{ const keep=new Set(Object.values(store.events).flatMap(e=>e.rows).flatMap(r=>(r.tickets||[]).filter(t=>t.photo).map(t=>t.id)));
+    const keys=await this.tx("readonly",s=>s.getAllKeys()); const old=keys.filter(k=>!keep.has(k));
+    if($("#sheet").classList.contains("on")) return;   // amb un formulari obert hi pot haver fotos noves encara sense desar
+    if(old.length) await this.tx("readwrite",s=>{ old.forEach(k=>{ s.delete(k); delete this.urls[k]; }); return s.count(); }); }catch(e){} },
+  async shrink(file){
+    const img=await createImageBitmap(file,{imageOrientation:"from-image"});
+    const k=Math.min(1,1600/Math.max(img.width,img.height)), c=document.createElement("canvas");
+    c.width=Math.round(img.width*k); c.height=Math.round(img.height*k);
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    return new Promise(ok=>c.toBlob(ok,"image/jpeg",0.75));
+  },
+  pick(id,done){
+    const pk=$("#picker"); pk.classList.add("on");
+    const close=()=>pk.classList.remove("on");
+    const take=inp=>{ close(); inp.value=""; inp.onchange=async()=>{ const f=inp.files&&inp.files[0]; if(!f) return;
+      try{ const b=await this.shrink(f); await this.put(id,b); done(b); }catch(e){ toast("No s'ha pogut guardar la foto. Torna-ho a provar."); } }; inp.click(); };
+    $("#pkCam").onclick=()=>take($("#inCam")); $("#pkGal").onclick=()=>take($("#inGal")); $("#pkNo").onclick=close;
+  },
+  async view(id,onRemove){
+    const u=await this.url(id);
+    if(!u){ if(state&&state.cloud){ toast("La foto d'aquest tiquet és al mòbil de qui l'ha fet (encara no n'ha arribat la miniatura)."); return; }
+      toast("No trobo la foto d'aquest tiquet"); onRemove(); return; }
+    $("#vImg").src=u; $("#viewer").classList.add("on");
+    const close=()=>$("#viewer").classList.remove("on");
+    $("#vClose").onclick=close; $("#vDel").onclick=()=>{ close(); onRemove(); };
+  }
+};
+
+/* LECTOR DE TIQUETS (només a l'APK): ML Kit dins el mòbil, sense xarxa. A la web no hi és i no surt res. */
+const Ocr={
+  P:(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())?(Capacitor.Plugins.Ocr||Capacitor.registerPlugin("Ocr")):null,
+  async total(blob){
+    const data=await new Promise((ok,ko)=>{ const fr=new FileReader(); fr.onload=()=>ok(String(fr.result).split(",")[1]); fr.onerror=()=>ko(fr.error); fr.readAsDataURL(blob); });
+    const r=await this.P.read({data});
+    return findTotal(r.lines||[]);
+  }
+};
+
+/* SETTINGS: els de l'esdeveniment obert, o els generals a la pantalla d'inici */
+const verRow=()=>Upd.app?`<a id="mVer"><span class="mi">${IC.download}</span>Versió ${esc(Upd.app.version)} · Buscar actualitzacions</a>`:"";
 function settings(){
+  if(!state) return homeSettings();
+  const can=Sync.canEditEvent(state);
   openSheet(`
-    <div class="head"><h2>Ajustos</h2><button id="x">${IC.close}</button></div>
+    <div class="head"><h2>Ajustos de l'esdeveniment</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
     <div class="two grp">
-      <div><label class="lab2">Menys de… anys paguen 0%</label>
-        <input class="fld num" id="cZero" type="text" inputmode="numeric" value="${state.config.zero}"></div>
-      <div><label class="lab2">… anys o més paguen 100%</label>
-        <input class="fld num" id="cFull" type="text" inputmode="numeric" value="${state.config.full}"></div>
+      <div><label class="lab2" for="cZero">No paguen si tenen menys de (anys)</label>
+        <input class="fld num" id="cZero" type="text" inputmode="numeric" value="${state.config.zero}" ${can?"":"disabled"}></div>
+      <div><label class="lab2" for="cFull">Paguen tot a partir de (anys)</label>
+        <input class="fld num" id="cFull" type="text" inputmode="numeric" value="${state.config.full}" ${can?"":"disabled"}></div>
     </div>
-    <div class="hint" style="margin:0 2px 18px">Entre aquestes dues edats, els nens paguen el 50%. Els adults sempre paguen el 100%.</div>
+    <div class="hint" style="margin:0 2px 8px">Entre aquestes dues edats paguen la meitat. Els adults sempre paguen tot. ${can?"Només per a aquest esdeveniment.":"Només els pot canviar el propietari."}</div>
     <div class="menu">
-      <a id="mShare"><span class="mi">${IC.share}</span>Compartir resultat per WhatsApp</a>
-      <a id="mExample"><span class="mi">${IC.beaker}</span>Carregar dades d'exemple</a>
-      <a id="mClear" class="danger"><span class="mi">${IC.trash}</span>Esborrar-ho tot</a>
+      <div class="sect">Compartir</div>
+      ${Sync.available()?`<a id="mMembers"><span class="mi">${IC.users}</span>${state.cloud?"Persones i invitacions":"Compartir amb altres persones"}</a>`:""}
+      <a id="mShare"><span class="mi">${IC.share}</span>Enviar el resultat per WhatsApp</a>
+      <a id="mCsv"><span class="mi">${IC.file}</span>Resum «qui paga a qui» en CSV</a>
+      <a id="mPdf"><span class="mi">${IC.file}</span>Resum «qui paga a qui» en PDF</a>
+      <div class="sect">Esdeveniment</div>
+      ${eventActions(state)}
+      <div class="sect">App</div>
+      ${verRow()}
     </div>
   `);
   $("#x").onclick=closeSheet;
   $("#cZero").addEventListener("input",e=>{ const v=parseInt(e.target.value,10); if(!isNaN(v)){ state.config.zero=Math.max(0,Math.min(v,state.config.full)); renderAll(); } });
   $("#cFull").addEventListener("input",e=>{ const v=parseInt(e.target.value,10); if(!isNaN(v)){ state.config.full=Math.max(state.config.zero,v); renderAll(); } });
+  $("#mMembers")&&($("#mMembers").onclick=()=>Members.open(state));
   $("#mShare").onclick=()=>{ closeSheet(); share(); };
-  $("#mExample").onclick=()=>{ if(confirm("Carregar dades d'exemple? Es perdrà el que tinguis ara.")){ state=seed(); renderAll(); closeSheet(); toast("Exemple carregat"); } };
-  $("#mClear").onclick=()=>{ if(confirm("Segur que vols esborrar-ho tot?")){ state={config:{zero:3,full:12},rows:[]}; renderAll(); closeSheet(); toast("Esborrat"); } };
+  $("#mCsv").onclick=()=>saveFile(fileBase(state.name)+".csv","text/csv","﻿"+toCSV());
+  $("#mPdf").onclick=()=>{ closeSheet(); printSummary(); };
+  bindEventActions(state);
+  $("#mVer")&&($("#mVer").onclick=()=>Upd.check(true));
 }
 $("#settingsBtn").addEventListener("click",settings);
+function homeSettings(){
+  openSheet(`
+    <div class="head"><h2>Ajustos</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+    <div class="menu">
+      <div class="sect">Còpies de seguretat</div>
+      <a id="mBackup"><span class="mi">${IC.download}</span>Exportar-ho tot (.json)</a>
+      <a id="mImport"><span class="mi">${IC.upload}</span>Importar un fitxer .json</a>
+      ${Sync.available()?`<a id="mCode"><span class="mi">${IC.users}</span>Entrar amb un codi d'invitació</a>`:""}
+      <div class="hint" style="margin:4px 4px 6px">Serveix per passar les dades a un altre mòbil sense compte, o per guardar-les. Les fotos dels tiquets no hi van.</div>
+      ${Sync.available()?`<div class="sect">Compte</div><a id="mAccount"><span class="mi">${IC.users}</span>${esc(Sync.accountLabel())}</a>`:""}
+      <div class="sect">Altres</div>
+      <a id="mExample"><span class="mi">${IC.beaker}</span>Crear un esdeveniment d'exemple</a>
+      ${verRow()}
+    </div>`);
+  $("#x").onclick=closeSheet;
+  $("#mBackup").onclick=()=>saveFile("calculs-canet-copia-"+new Date().toISOString().slice(0,10)+".json","application/json",JSON.stringify(exportData(Object.values(store.events),Date.now())));
+  $("#mImport").onclick=importFile;
+  $("#mCode")&&($("#mCode").onclick=askCode);
+  $("#mAccount")&&($("#mAccount").onclick=()=>Sync.accountSheet());
+  $("#mExample").onclick=()=>{ const s=seed(); const e=newEvent("Exemple",Date.now(),s.rows,s.config); store.events[e.id]=e; openEvent(e.id); toast("Exemple creat: el pots esborrar quan vulguis"); };
+  $("#mVer")&&($("#mVer").onclick=()=>Upd.check(true));
+}
+
+/* ACCIONS D'UN ESDEVENIMENT (des de la llista o des dels seus Ajustos) */
+function eventActions(e){
+  const own=Sync.isOwner(e);
+  return `<a data-ea="rename" ${Sync.canEditEvent(e)?"":"hidden"}><span class="mi">${IC.edit}</span>Reanomenar</a>
+    <a data-ea="dup"><span class="mi">${IC.copy}</span>Duplicar</a>
+    <a data-ea="scen"><span class="mi">${IC.beaker}</span>Duplicar com a escenari</a>
+    ${e.scenarioOf&&store.events[e.scenarioOf]?`<a data-ea="cmp"><span class="mi">${IC.swap}</span>Comparar amb l'original</a>`:""}
+    <a data-ea="export"><span class="mi">${IC.download}</span>Exportar aquest esdeveniment (.json)</a>
+    <a data-ea="archive"><span class="mi">${IC.archive}</span>${e.archived?"Treure de l'arxiu":"Arxivar"}</a>
+    <a data-ea="del" class="danger"><span class="mi">${IC.trash}</span>${e.cloud&&!own?"Sortir de l'esdeveniment":e.scenarioOf?"Descartar l'escenari":"Esborrar l'esdeveniment"}</a>`;
+}
+function bindEventActions(e){ $$("[data-ea]").forEach(a=>a.onclick=()=>eventAction(e,a.dataset.ea)); }
+function eventMenu(id){
+  const e=store.events[id]; if(!e) return;
+  openSheet(`<div class="head"><h2>${esc(e.name)}</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+    <div class="menu"><a data-open="${e.id}"><span class="mi">${IC.list}</span>Obrir</a>${eventActions(e)}</div>`);
+  $("#x").onclick=closeSheet; bindEventActions(e);
+}
+function duplicate(e,scenario){
+  const c=cloneEvent(e,scenario?{name:e.name+" · escenari",scenarioOf:e.id}:{name:e.name+" (còpia)",scenarioOf:null},Date.now());
+  store.events[c.event.id]=c.event; Photos.copy(c.photos);
+  openEvent(c.event.id);
+  toast(scenario?"Escenari creat. Prova-hi el que vulguis: l'original no canvia.":"Duplicat");
+}
+async function eventAction(e,a){
+  if(a==="rename"){ const n=await askText("Reanomenar","Nom",e.name,"Desar"); if(n){ e.name=n.slice(0,80); e.updatedAt=Date.now(); paint(); save(); } return; }
+  if(a==="dup") return duplicate(e,false);
+  if(a==="scen") return duplicate(e,true);
+  if(a==="cmp") return compareSheet(e);
+  if(a==="export") return saveFile(fileBase(e.name)+".json","application/json",JSON.stringify(exportData([e],Date.now())));
+  if(a==="archive"){ e.archived=!e.archived; closeSheet(); if(state===e&&e.archived) goHome(); else { paint(); save(); } toast(e.archived?"Arxivat":"Tret de l'arxiu"); return; }
+  if(a==="del"){
+    const leave=e.cloud&&!Sync.isOwner(e), n=e.rows.length, t=e.rows.reduce((s,r)=>s+(r.tickets||[]).length,0);
+    const txt=leave?"Deixaràs de veure'l. Per tornar-hi et caldrà una invitació nova."
+      :"Se n'esborren "+n+(n===1?" fila":" files")+" i "+t+(t===1?" tiquet":" tiquets")+(e.cloud?", també del núvol (els altres membres en conservaran una còpia al seu mòbil)":"")+". No es pot desfer: si vols, exporta'l abans.";
+    if(!await ask((leave?"Sortir de":"Esborrar")+" «"+e.name+"»?",txt,leave?"Sortir":"Esborrar",true)) return;
+    try{ if(e.cloud){ e.leaving=true; toast(leave?"Sortint…":"Esborrant…"); await (leave?Sync.leave(e):Sync.remove(e)); } }
+    catch(err){ e.leaving=false; toast(Sync.errText(err)); return; }
+    delete store.events[e.id];
+    if(state===e) goHome(); else { paint(); save(); }
+    toast(leave?"Has sortit de l'esdeveniment":"Esborrat");
+  }
+}
+function compareSheet(e){
+  const o=store.events[e.scenarioOf]; if(!o) return toast("L'original ja no hi és");
+  const c=compareEvents(o,e), f=v=>v==null?"—":(v>0.005?"+":"")+money(v);
+  openSheet(`<div class="head"><h2>Comparar</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+    <p class="hint" style="margin:-6px 2px 12px">Saldo de cadascú a «${esc(o.name)}» i en aquest escenari. Verd: li deuen; vermell: ha de posar.</p>
+    <table class="cmp num"><tr><th>Persona</th><th>Original</th><th>Escenari</th><th>Diferència</th></tr>
+      <tr><td><b>Per adult</b></td><td>${money(c.cpu[0])}</td><td>${money(c.cpu[1])}</td><td>${f(c.cpu[1]-c.cpu[0])}</td></tr>
+      ${c.rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${f(r.before)}</td><td>${f(r.after)}</td><td>${r.before==null||r.after==null?"—":f(r.after-r.before)}</td></tr>`).join("")}</table>
+    <button class="btn btn-ghost" id="cDrop" style="margin-top:16px;color:var(--neg)">Descartar l'escenari</button>
+    <button class="btn btn-primary" id="cOk" style="margin-top:9px">Tancar</button>`);
+  $("#x").onclick=$("#cOk").onclick=closeSheet; $("#cDrop").onclick=()=>eventAction(e,"del");
+}
+
+/* FITXERS: exportar, importar, CSV i PDF */
+const Nat=n=>(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())?(Capacitor.Plugins[n]||Capacitor.registerPlugin(n)):null;
+const fileBase=n=>(String(n).normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^\w]+/g,"-").replace(/^-|-$/g,"").toLowerCase()||"esdeveniment")+"-"+new Date().toISOString().slice(0,10);
+async function saveFile(name,mime,text){
+  const FS=Nat("Filesystem"), SH=Nat("Share");
+  try{
+    if(FS&&SH){   // APK: es desa a la memòria cau i s'obre el menú de compartir (Drive, WhatsApp, Desar a Baixades...)
+      const w=await FS.writeFile({path:name,data:text,directory:"CACHE",encoding:"utf8"});
+      await SH.share({title:name,files:[w.uri],dialogTitle:"Desar o enviar "+name});
+      return;
+    }
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([text],{type:mime+";charset=utf-8"})); a.download=name;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+    toast("Desat: "+name);
+  }catch(e){ if(!/cancel/i.test(e&&e.message||"")) toast("No s'ha pogut desar el fitxer. Torna-ho a provar."); }
+}
+function printSummary(){
+  const c=compute(), tx=settle(c.res);
+  $("#printArea").innerHTML=`<h1>${esc(state.name)}</h1><p>Càlculs Canet · ${new Date().toLocaleDateString("ca-ES")} · Total pagat ${money(c.totalPaid)} · ${money(c.cpu)} per adult</p>
+    <h2>Qui paga a qui</h2>${tx.length?`<table>${tx.map(t=>`<tr><td>${esc(groupLabel(t.fromId))}</td><td>→ ${esc(groupLabel(t.toId))}</td><td class="r">${money(t.amount)}</td></tr>`).join("")}</table>`:"<p>Tot quadrat, ningú deu res.</p>"}
+    <h2>Saldo de cadascú</h2><table><tr><th>Persona o família</th><th class="r">Ha pagat</th><th class="r">Li toca</th><th class="r">Saldo</th></tr>
+    ${c.res.map(r=>`<tr><td>${esc(r.name)}</td><td class="r">${money(r.paid)}</td><td class="r">${money(r.fair)}</td><td class="r">${(r.bal>0.005?"+":"")+money(r.bal)}</td></tr>`).join("")}</table>`;
+  const P=Nat("Upd");
+  if(P) P.print({name:fileBase(state.name)}).catch(()=>toast("No s'ha pogut obrir la impressió"));   // Android: «Desa com a PDF»
+  else window.print();
+}
+function importFile(){
+  const inp=$("#inJson"); inp.value="";
+  inp.onchange=async()=>{
+    const f=inp.files&&inp.files[0]; if(!f) return;
+    let evs;
+    try{ if(f.size>20e6) throw new Error("El fitxer és massa gran."); evs=parseImport(JSON.parse(await f.text()),Date.now()); }
+    catch(err){ toast(err instanceof SyntaxError?"El fitxer no és un .json vàlid.":err.message); return; }
+    const dup=evs.filter(e=>store.events[e.id]);
+    openSheet(`<div class="head"><h2>Importar</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+      <p style="margin:0 0 10px">${evs.length===1?"1 esdeveniment":evs.length+" esdeveniments"}: ${evs.map(e=>"«"+esc(e.name)+"»").join(", ")}.</p>
+      ${dup.length?`<div class="notice">${dup.length===evs.length?"Ja els tens":"N'hi ha "+dup.length+" que ja tens"} (${dup.map(e=>"«"+esc(store.events[e.id].name)+"»").join(", ")}).
+        <b>Fusionar</b> hi afegeix el que falta i, si una fila és diferent, es queda la més recent. <b>Crear com a nous</b> no toca els que tens.</div>
+        <button class="btn btn-primary" id="iMerge">Fusionar</button><button class="btn btn-ghost" id="iNew" style="margin-top:9px">Crear com a nous</button>`
+       :`<button class="btn btn-primary" id="iNew">Importar</button>`}`);
+    $("#x").onclick=closeSheet;
+    const go=merge=>{
+      backupStore("abans_importar");
+      let msg=[];
+      evs.forEach(e=>{
+        const cur=store.events[e.id];
+        if(cur&&merge){ const m=mergeEvent(cur,e); cur.rows=m.event.rows; cur.updatedAt=Date.now(); msg.push("«"+cur.name+"»: "+m.added+" noves, "+m.updated+" actualitzades, "+m.same+" iguals"); }
+        else if(cur){ const c=cloneEvent(e,{name:e.name+" (importat)"},Date.now()).event; store.events[c.id]=c; }
+        else store.events[e.id]=e;
+      });
+      closeSheet(); paint(); save();
+      toast(msg.length?msg.join(" · "):"Importat",4000);
+    };
+    $("#iMerge")&&($("#iMerge").onclick=()=>go(true)); $("#iNew").onclick=()=>go(false);
+  };
+  inp.click();
+}
 
 /* SHARE */
 function summaryText(){
   const c=compute(); const tx=settle(c.res);
-  let s="Càlculs Canet — Repartiment\n";
+  let s=state.name+" — Repartiment\n";
   s+="Total pagat: "+money(c.totalPaid)+"\n\nQui paga a qui:\n";
   s+= tx.length ? tx.map(t=>"• "+t.from+" → "+t.to+": "+money(t.amount)).join("\n") : "Tot quadrat, ningú deu res.";
   s+="\n\nSaldo de cadascú:\n";
@@ -463,13 +1143,452 @@ function summaryText(){
   return s;
 }
 async function share(){
-  const text=summaryText();
+  const text=summaryText(), SH=Nat("Share");
+  if(SH){ try{ await SH.share({title:state.name,text,dialogTitle:"Enviar el resultat"}); return; }catch(e){ if(/cancel/i.test(e&&e.message||"")) return; } }
   if(navigator.share){ try{ await navigator.share({title:"Càlculs Canet",text}); return; }catch(e){ if(e.name==="AbortError")return; } }
   try{ await navigator.clipboard.writeText(text); toast("Resultat copiat"); }
   catch(e){ const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");toast("Resultat copiat");}catch(_){alert(text);} ta.remove(); }
 }
 
-renderAll();
+/* NÚVOL (Firebase): sessió anònima + Firestore amb memòria al mòbil (funciona sense connexió i s'envia sol en tornar-n'hi).
+   - L'SDK és dins l'app (www/vendor/firebase): sense connexió també carrega.
+   - Si no carrega o el núvol falla, l'app continua igual amb el que hi ha al mòbil (mirall a localStorage).
+   - Cada esdeveniment local puja sol quan hi ha sessió. «base» = el que hi ha al núvol; s'envia la diferència amb el que hi ha ara.
+   La seguretat la posen les regles (firestore.rules): la configuració de sota és pública per disseny. */
+const FB_VER="12.19.0", WEB_URL="https://calotadasalva.web.app";
+const FB_CONFIG={apiKey:"AIzaSyAtHpLR-jCZXR26gqrnVvCfWVZcN-DLAak",authDomain:"calculs-canet.firebaseapp.com",projectId:"calculs-canet",
+  storageBucket:"calculs-canet.firebasestorage.app",messagingSenderId:"49984147597",appId:"1:49984147597:web:c8722114537d975f5d92c4"};
+const withTimeout=(p,ms)=>Promise.race([p,new Promise((_,ko)=>setTimeout(()=>ko({code:"unavailable"}),ms))]);
+const Sync={
+  fb:null, db:null, auth:null, user:null, broken:false, switching:false,
+  evUnsub:null, unsub:[], live:null, pending:false, fromCache:true, warned:{},
+  uid(){ return this.user?this.user.uid:lsGet("cc_uid"); },
+  available(){ return !!this.user; },
+  myName(){ return lsGet("cc_name")||""; },
+  nameOf(u){ if(!u) return ""; if(u===this.uid()) return "tu"; return (state&&state.names&&state.names[u])||""; },
+  isOwner(e){ return roleOf(e,this.uid())==="owner"; },
+  canEditEvent(e){ return this.isOwner(e); },
+  canEditRow(r){ return !state||canEditRowOf(state,this.uid(),r); },
+  canAddRow(e){ return canAddRowOf(e,this.uid()); },
+  errText(e){ const c=String(e&&e.code||"").replace(/^(auth|firestore)\//,"");
+    return c==="permission-denied"?"No tens permís per fer això.":c==="unavailable"||c==="network-request-failed"?"Sense connexió. Torna-ho a provar quan en tinguis."
+      :c==="not-found"?"No s'ha trobat (potser l'han esborrat).":c==="popup-closed-by-user"||c==="cancelled-popup-request"?"Cancel·lat."
+      :"Hi ha hagut un error"+(c?" ("+c+")":"")+". Torna-ho a provar."; },
+  warn(key,msg){ if(this.warned[key]) return; this.warned[key]=1; toast(msg,4500); },
+
+  async start(){
+    try{
+      const base="./vendor/firebase/"+FB_VER+"/";
+      const [A,U,F]=await Promise.all(["app","auth","firestore"].map(n=>import(base+"firebase-"+n+".js")));
+      this.fb={...A,...U,...F};
+      const app=A.initializeApp(FB_CONFIG);
+      this.auth=U.initializeAuth(app,{persistence:[U.indexedDBLocalPersistence,U.browserLocalPersistence],
+        ...(Nat("Upd")?{}:{popupRedirectResolver:U.browserPopupRedirectResolver})});   // a l'APK, Google va pel plugin natiu
+      this.db=F.initializeFirestore(app,{localCache:F.persistentLocalCache({tabManager:F.persistentMultipleTabManager()})});
+    }catch(e){ console.warn("Firebase no ha carregat: l'app funciona en local",e); return; }
+    this.fb.onAuthStateChanged(this.auth,u=>this.onUser(u));
+    window.addEventListener("online",()=>{ if(!this.user) this.signIn(); this.paintStatus(); });
+    window.addEventListener("offline",()=>this.paintStatus());
+  },
+  async signIn(){ try{ await this.fb.signInAnonymously(this.auth); }catch(e){ /* sense xarxa: es torna a provar en recuperar-la */ } },
+  onUser(u){
+    if(this.switching) return;
+    const prev=this.user&&this.user.uid; this.user=u;
+    if(!u){ this.signIn(); this.paintStatus(); return; }
+    lsSet("cc_uid",u.uid);
+    if(prev===u.uid) return;
+    this.push();                 // primer el que s'hagi fet sense SDK, després escoltar
+    this.listenEvents();
+    if(state) this.watch(state);
+    paint();
+    this.pendingInvite();
+  },
+  ref(...p){ return this.fb.doc(this.db,...p); },
+  write(p,key){ p.catch(err=>{ const c=String(err&&err.code||"");
+    if(c.includes("not-found")) return;                                   // algú ho havia esborrat: res a fer
+    this.warn(key||c, c.includes("permission")?"Un canvi no s'ha pogut desar al núvol: no tens permís. S'ha desfet.":this.errText(err)); }); },
+
+  /* ENVIAR: per a cada esdeveniment, la diferència entre el núvol («base») i el que hi ha ara */
+  push(){
+    if(!this.db||!this.user||this.switching||store.readonly) return;
+    Object.values(store.events).forEach(e=>{ if(!e.cloud) this.upload(e); else this.pushOne(e); });
+  },
+  pushOne(e){
+    if(!e.base) return;
+    const cur=docsOf(e), me=this.uid(), stamp={updatedAt:Date.now(),updatedBy:me};
+    let ops=diffDocs(e.base,cur);
+    if(!this.isOwner(e)) ops=ops.filter(o=>o.col!=="meta");                 // nom, Ajustos i mode: només el propietari
+    if(!ops.length) return;
+    const F=this.fb;
+    ops.forEach(o=>{
+      const ref=o.col==="meta"?this.ref("events",e.id):this.ref("events",e.id,o.col,o.id);
+      this.write(o.op==="delete"?F.deleteDoc(ref):o.op==="set"?F.setDoc(ref,{...o.data,...stamp}):F.updateDoc(ref,{...o.data,...stamp}));
+      if(o.col==="tickets") this.thumb(e,o,cur.tickets[o.id]);
+    });
+    e.base={meta:e.base.meta?cur.meta:null,rows:cur.rows,tickets:cur.tickets};   // Firestore ho guarda al mòbil fins que ho pot enviar
+  },
+  // Pujar un esdeveniment que només era al mòbil. Agafa un id nou al núvol (un fitxer importat podria repetir-ne un d'algú altre).
+  upload(e){
+    if(this.broken) return;
+    const me=this.uid(), old=e.id, id=uid(), F=this.fb;
+    delete store.events[old]; e.id=id; store.events[id]=e;
+    if(store.currentId===old) store.currentId=id;
+    Object.values(store.events).forEach(x=>{ if(x.scenarioOf===old) x.scenarioOf=id; });
+    e.rows.forEach((r,i)=>{ if(r.pos==null) r.pos=i; if(!r.ownerUid) r.ownerUid=me; (r.tickets||[]).forEach((t,j)=>{ if(t.pos==null) t.pos=j; }); });
+    Object.assign(e,{cloud:true, ownerUid:me, roles:{[me]:"owner"}, memberUids:[me], names:{[me]:this.myName()||"Propietari"}});
+    const d=docsOf(e);
+    F.setDoc(this.ref("events",id),{...d.meta, ownerUid:me, roles:e.roles, memberUids:e.memberUids, names:e.names, schema:SCHEMA,
+      createdAt:e.createdAt||Date.now(), updatedAt:Date.now(), updatedBy:me}).catch(err=>{
+      // el núvol no hi és (o no ens deixa): l'esdeveniment continua al mòbil com abans, i no es torna a provar fins a la propera obertura
+      console.warn("upload",err); this.broken=true;
+      ["cloud","ownerUid","roles","memberUids","names","base"].forEach(k=>delete e[k]);
+      paint(); save(); this.warn("upload","No s'ha pogut connectar amb el núvol. Les dades continuen desades en aquest mòbil.");
+    });
+    e.base={meta:d.meta,rows:{},tickets:{}};
+    this.pushOne(e);
+    if(state===e) this.watch(e);
+  },
+
+  /* REBRE */
+  listenEvents(){
+    const F=this.fb; if(this.evUnsub) this.evUnsub();
+    this.evUnsub=F.onSnapshot(F.query(F.collection(this.db,"events"),F.where("memberUids","array-contains",this.uid())),snap=>{
+      snap.docChanges().forEach(ch=>{
+        const id=ch.doc.id, d=ch.doc.data();
+        if(ch.type==="removed"){ if(!snap.metadata.fromCache&&!ch.doc.metadata.hasPendingWrites) this.lost(id); return; }
+        let e=store.events[id];
+        if(e&&!e.cloud) return this.rekey(e);                                // un local amb el mateix id: es queda apart
+        if(!e){ e=store.events[id]=cleanEvent({id,createdAt:d.createdAt},Date.now()); e.base={meta:null,rows:{},tickets:{}}; e.rows=[]; }
+        Object.assign(e,{cloud:true, name:str(d.name,80)||"Esdeveniment", config:cleanConfig(d.config), mode:d.mode==="own"?"own":"open",
+          scenarioOf:d.scenarioOf||null, roles:d.roles||{}, memberUids:d.memberUids||[], names:d.names||{}, ownerUid:d.ownerUid||null});
+        e.base=e.base||{rows:{},tickets:{}}; e.base.meta=docsOf(e).meta;
+      });
+      paint(); save();
+    },err=>console.warn("events",err));
+  },
+  rekey(e){ const old=e.id; e.id=uid(); delete store.events[old]; store.events[e.id]=e; if(store.currentId===old) store.currentId=e.id; },
+  // Ja no hi tenim accés (ens han tret o l'han esborrat): ens en quedem una còpia al mòbil, mai es perd el que es veia
+  lost(id){
+    const e=store.events[id]; if(!e||!e.cloud||e.leaving) return;
+    ["cloud","ownerUid","roles","memberUids","names","base"].forEach(k=>delete e[k]);
+    e.name=(e.name+" (còpia)").slice(0,80); this.rekey(e);
+    if(state===e) this.watch(null);
+    paint(); lsSet(LS3,JSON.stringify(store));
+    toast("Ja no tens accés a «"+e.name.replace(/ \(còpia\)$/,"")+"». Te n'he deixat una còpia en aquest mòbil.",5000);
+  },
+  watch(e){
+    this.unsub.forEach(f=>f()); this.unsub=[]; this.live=null; this.pending=false; this.fromCache=true;
+    if(!e||!e.cloud||!this.db||!this.user){ this.paintStatus(); return; }
+    this.pushOne(e);
+    const F=this.fb, L=this.live={id:e.id,rows:null,tickets:null,pend:{}};
+    ["rows","tickets"].forEach(col=>this.unsub.push(F.onSnapshot(F.collection(this.db,"events",e.id,col),{includeMetadataChanges:true},snap=>{
+      L[col]=Object.fromEntries(snap.docs.map(d=>[d.id,d.data()])); L.pend[col]=snap.metadata.hasPendingWrites;
+      this.pending=!!(L.pend.rows||L.pend.tickets); this.fromCache=snap.metadata.fromCache;
+      if(L.rows&&L.tickets&&this.live===L) this.apply(e);
+    },err=>{   // sol passar just després de pujar-lo (el núvol encara no té l'esdeveniment): es torna a provar. Si ens han tret, ho diu listenEvents.
+      console.warn("watch",col,err&&err.code);
+      if(this.live===L) setTimeout(()=>{ if(this.live===L&&state===e) this.watch(e); },4000); })));
+    this.paintStatus();
+  },
+  apply(e){
+    const L=this.live, key=JSON.stringify(e.rows);
+    e.rows=assemble(L.rows,L.tickets,e.mode);
+    e.base={meta:e.base&&e.base.meta||null,...(({rows,tickets})=>({rows,tickets}))(docsOf(e))};
+    if(JSON.stringify(e.rows)!==key){ paint(); checkEditing(); lsSet(LS3,JSON.stringify(store)); }
+    else this.paintStatus();
+  },
+  paintStatus(){
+    const el=$("#syncSt"); if(!el) return;
+    if(!state||!state.cloud){ el.innerHTML=""; return; }
+    const on=navigator.onLine;
+    const [c,t]=this.pending?(on?["pend","Enviant canvis…"]:["off","Sense connexió · desat al mòbil"])
+      :!on?["off","Sense connexió · desat al mòbil"]:(!this.user||this.fromCache)?["off","Connectant…"]:["","Sincronitzat"];
+    el.innerHTML=` · <span class="status ${c}" role="status"><i></i>${t}</span>`;
+  },
+
+  /* FOTOS: la foto bona es queda al mòbil; al núvol només una miniatura (640 px, grisos) perquè els altres la vegin */
+  thumb(e,o,t){
+    const del=o.op==="delete"||(t&&!t.photo), F=this.fb, ref=this.ref("events",e.id,"thumbs",o.id);
+    if(del){ if(o.op==="delete"||"photo" in o.data) this.write(F.deleteDoc(ref),"thumb"); return; }
+    if(o.op==="update"&&!("photo" in o.data)) return;
+    Photos.thumb(o.id).then(data=>{ if(data) this.write(F.setDoc(ref,{data,ownerUid:t.ownerUid,updatedAt:Date.now(),updatedBy:this.uid()}),"thumb"); });
+  },
+  async thumbUrl(id){
+    if(!this.db||!state||!state.cloud) return null;
+    try{ const s=await withTimeout(this.fb.getDoc(this.ref("events",state.id,"thumbs",id)),8000); return s.exists()?s.data().data:null; }catch(e){ return null; }
+  },
+
+  /* COMPARTIR */
+  newCode(){ const A="23456789ABCDEFGHJKMNPQRSTUVWXYZ", b=crypto.getRandomValues(new Uint8Array(8)); return [...b].map(x=>A[x%A.length]).join(""); },
+  async createInvite(e,role){
+    const code=this.newCode(), now=Date.now();
+    await withTimeout(this.fb.setDoc(this.ref("invites",code),{eventId:e.id,role,createdBy:this.uid(),createdAt:now,expiresAt:now+30*864e5,revoked:false}),10000);
+    return code;
+  },
+  async myInvites(e){
+    const F=this.fb, s=await withTimeout(F.getDocs(F.query(F.collection(this.db,"invites"),F.where("createdBy","==",this.uid()))),10000);
+    return s.docs.map(d=>({code:d.id,...d.data()})).filter(i=>i.eventId===e.id&&!i.revoked&&i.expiresAt>Date.now()&&i.role!=="owner");
+  },
+  async askName(){
+    if(this.myName()) return true;
+    const n=await askText("Com et dius?","El teu nom (el veuran els altres)","","Continuar","Per exemple «Pol»");
+    if(!n) return false; lsSet("cc_name",n.slice(0,40)); return true;
+  },
+  // Entrar a un esdeveniment amb un codi o un enllaç. Retorna l'id de l'esdeveniment.
+  async redeem(code){
+    const F=this.fb, me=this.uid();
+    const s=await withTimeout(F.getDoc(this.ref("invites",code)),10000);
+    if(!s.exists()) throw {msg:"Aquest codi no existeix. Revisa'l o demana'n un de nou."};
+    const inv=s.data();
+    if(inv.revoked||inv.expiresAt<Date.now()) throw {msg:"Aquesta invitació ha caducat o l'han anul·lada. Demana'n una de nova."};
+    const e=store.events[inv.eventId];
+    if(e&&e.cloud&&e.roles&&e.roles[me]) return inv.eventId;                  // ja hi eres
+    if(e&&!e.cloud) this.rekey(e);
+    await withTimeout(F.updateDoc(this.ref("events",inv.eventId),{["roles."+me]:inv.role, memberUids:F.arrayUnion(me),
+      ["names."+me]:this.myName()||"Sense nom", lastInvite:code}),10000);
+    return inv.eventId;
+  },
+  async join(code){
+    code=String(code||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+    if(code.length!==8) return toast("El codi té 8 lletres i números.");
+    if(!this.user){ lsSet("cc_invite",code); return toast("Cal connexió per entrar a l'esdeveniment. Ho tornaré a provar sol quan en tinguis.",4500); }
+    if(!await this.askName()) return;
+    toast("Entrant a l'esdeveniment…");
+    try{
+      const id=await this.redeem(code); localStorage.removeItem("cc_invite");
+      const wait=Date.now(); while(!store.events[id]&&Date.now()-wait<8000) await new Promise(r=>setTimeout(r,200));   // arriba pel llistat
+      if(!store.events[id]) throw {code:"unavailable"};
+      openEvent(id); toast("Ja hi ets! Els canvis de tothom es veuen al moment.");
+    }catch(err){ if(err&&err.msg) toast(err.msg,4500); else { toast(this.errText(err),4500); if(String(err&&err.code).includes("unavailable")) lsSet("cc_invite",code); } }
+  },
+  pendingInvite(){
+    let code=lsGet("cc_invite");
+    const u=new URL(location.href);
+    if(/\/i\/?$/.test(u.pathname)&&u.searchParams.get("c")){ code=u.searchParams.get("c"); history.replaceState(null,"",u.pathname.replace(/i\/?$/,"")); }
+    if(code) this.join(code);
+  },
+  async leave(e){ const F=this.fb, me=this.uid();
+    await withTimeout(F.updateDoc(this.ref("events",e.id),{["roles."+me]:F.deleteField(), memberUids:F.arrayRemove(me), ["names."+me]:F.deleteField()}),10000); },
+  // Esborrar del núvol: primer tiquets, miniatures i files; l'esdeveniment l'últim (les regles el miren per a tota la resta)
+  async remove(e){
+    const F=this.fb;
+    const all=await withTimeout(Promise.all(["tickets","thumbs","rows"].map(c=>F.getDocs(F.collection(this.db,"events",e.id,c)))),15000);
+    for(const s of all) await Promise.all(s.docs.map(d=>F.deleteDoc(d.ref)));
+    try{ (await this.myInvites(e)).forEach(i=>this.write(F.updateDoc(this.ref("invites",i.code),{revoked:true}))); }catch(_){}
+    if(state===e) this.watch(null);
+    await withTimeout(F.deleteDoc(this.ref("events",e.id)),10000);
+  },
+
+  /* COMPTE: anònim per defecte; vincular Google per no perdre l'accés si canvies de mòbil */
+  google(){ return this.user&&this.user.providerData.find(p=>p.providerId==="google.com"); },
+  accountLabel(){ const g=this.google(); return g?"Compte de Google: "+(g.email||""):"Compte i nom · vincular amb Google"; },
+  accountSheet(){
+    const g=this.google();
+    openSheet(`<div class="head"><h2>Compte</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+      <div class="grp"><label class="lab2" for="myName">El teu nom (el veuen els altres membres)</label><input class="fld" id="myName" maxlength="40" value="${esc(this.myName())}"></div>
+      <p style="margin:0 0 14px">${g?"Vinculat amb <b>"+esc(g.email||"Google")+"</b>. Si canvies de mòbil, entra amb aquest compte i hi tornaràs a tenir els esdeveniments.":
+        "Ara el compte és anònim i només és en aquest mòbil: si el perds o desinstal·les l'app, perds l'accés als esdeveniments del núvol. Vincula'l amb Google per no perdre'l."}</p>
+      ${g?"":`<button class="btn btn-primary" id="gLink">Vincular amb Google</button>`}
+      <button class="btn btn-ghost" id="nSave" style="margin-top:9px">Desar el nom</button>`);
+    $("#x").onclick=closeSheet;
+    $("#nSave").onclick=()=>{ const n=$("#myName").value.trim().slice(0,40); if(!n) return toast("Escriu un nom");
+      lsSet("cc_name",n); const me=this.uid();
+      Object.values(store.events).forEach(e=>{ if(e.cloud&&e.roles&&e.roles[me]) this.write(this.fb.updateDoc(this.ref("events",e.id),{["names."+me]:n}),"name"); });
+      closeSheet(); toast("Nom desat"); };
+    $("#gLink")&&($("#gLink").onclick=()=>this.linkGoogle());
+  },
+  async googleCred(){
+    const G=Nat("GoogleAuth"), F=this.fb;
+    if(G){ try{ const r=await G.signIn(); return F.GoogleAuthProvider.credential(r.idToken); }
+      catch(e){ throw {code:/cancel/i.test(e&&(e.code||e.message)||"")?"popup-closed-by-user":"google-apk"}; } }   // GoogleAuthPlugin.java
+    return null;   // web: popup
+  },
+  async linkGoogle(){
+    const F=this.fb; let cred=null;
+    try{
+      cred=await this.googleCred();
+      if(cred) await F.linkWithCredential(this.user,cred); else await F.linkWithPopup(this.user,new F.GoogleAuthProvider());
+      await this.user.reload(); closeSheet(); toast("Fet. Amb aquest compte de Google recuperes els esdeveniments a qualsevol mòbil.",4500);
+    }catch(err){
+      if(String(err&&err.code).includes("credential-already-in-use")){
+        cred=cred||F.GoogleAuthProvider.credentialFromError(err);
+        if(cred&&await ask("Aquest compte de Google ja s'ha fet servir","Vols entrar-hi? Els esdeveniments d'aquest mòbil hi passaran. Els que t'havien compartit com a editor o lector et caldrà que te'ls tornin a compartir.","Entrar-hi",false))
+          return this.switchTo(cred);
+        return;
+      }
+      toast(String(err&&err.code).includes("google-apk")?"No s'ha pogut obrir Google. Comprova que el mòbil té un compte de Google i connexió.":this.errText(err),4500);
+    }
+  },
+  // Canviar a un compte que ja existeix: abans de sortir, claus de propietari per tornar a entrar als nostres esdeveniments
+  async switchTo(cred){
+    const F=this.fb, me=this.uid(), mine=Object.values(store.events).filter(e=>e.cloud&&roleOf(e,me)==="owner");
+    toast("Passant els esdeveniments al compte de Google…");
+    try{
+      const codes=[]; for(const e of mine) codes.push(await this.createInvite(e,"owner"));
+      this.switching=true;
+      await F.signInWithCredential(this.auth,cred);
+      this.user=this.auth.currentUser; lsSet("cc_uid",this.user.uid);
+      for(const c of codes){ try{ await this.redeem(c); }catch(_){ } }
+      this.switching=false;
+      Object.values(store.events).forEach(e=>{ if(e.cloud&&!(mine.includes(e))) this.lost(e.id); else if(e.cloud) e.roles[this.user.uid]="owner"; });
+      this.push(); this.listenEvents(); this.watch(state); paint(); closeSheet(); toast("Fet. Ja estàs amb el compte de Google.");
+    }catch(err){ this.switching=false; toast(this.errText(err),4500); }
+  },
+};
+
+/* PERSONES I INVITACIONS d'un esdeveniment */
+const ROLE={owner:"Propietari",editor:"Pot editar",viewer:"Només mirar"};
+const Members={
+  async open(e){
+    if(!Sync.user) return toast("Cal connexió a internet per compartir.");
+    if(!e.cloud){ Sync.broken=false; Sync.upload(e); }
+    if(!await Sync.askName()) return;
+    const me=Sync.uid(), own=Sync.isOwner(e);
+    const ids=Object.keys(e.roles||{}).sort((a,b)=>(a===me?-1:b===me?1:0));
+    openSheet(`<div class="head"><h2>Persones</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+      ${own?`<label class="lab2" style="display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--ink);margin:0 2px 6px">
+        <input type="checkbox" id="mOwn" ${e.mode==="own"?"checked":""} style="width:22px;height:22px;accent-color:var(--green)">Cadascú posa el seu</label>
+        <div class="hint" style="margin:0 2px 16px">Activat: els editors només poden afegir i canviar la seva fila i els seus tiquets. Desactivat: tothom qui edita ho pot canviar tot.</div>`
+        :`<p class="hint" style="margin:-6px 2px 14px">${e.mode==="own"?"Mode «cadascú posa el seu»: només pots canviar la teva fila.":"Mode obert: tothom qui edita ho pot canviar tot."}</p>`}
+      <div class="card" style="padding:2px 14px;margin-bottom:16px">${ids.map(u=>`<div class="balrow">
+        <div class="mono" style="width:34px;height:34px;font-size:12px">${esc(initials(e.names&&e.names[u]))}</div>
+        <div style="flex:1;min-width:0"><div class="nm">${esc((e.names&&e.names[u])||"Sense nom")}${u===me?" (tu)":""}</div><div class="meta">${ROLE[e.roles[u]]||""}</div></div>
+        ${own&&u!==me&&e.roles[u]!=="owner"?`<select class="fld" data-role="${u}" style="width:auto;padding:8px" aria-label="Rol"><option value="editor" ${e.roles[u]==="editor"?"selected":""}>Edita</option><option value="viewer" ${e.roles[u]==="viewer"?"selected":""}>Mira</option></select>
+          <button class="del" data-kick="${u}" aria-label="Treure-li l'accés" style="width:40px;height:40px;border-radius:9px;color:var(--neg);background:var(--neg-bg);display:flex;align-items:center;justify-content:center">${IC.trash}</button>`:""}
+      </div>`).join("")}</div>
+      ${own?`<div class="sect">Convidar</div>
+        <button class="btn btn-primary" id="invE">${IC.share}<span>Convidar a editar</span></button>
+        <button class="btn btn-ghost" id="invV" style="margin-top:9px">Convidar només a mirar</button>
+        <div id="invList" class="hint" style="margin:14px 2px 0">Carregant invitacions…</div>`
+       :`<div class="hint">Només el propietari pot convidar més gent.</div>`}`);
+    $("#x").onclick=closeSheet;
+    if(!own) return;
+    $("#mOwn").onchange=ev=>{ e.mode=ev.target.checked?"own":"open"; paint(); save(); toast(e.mode==="own"?"Ara cadascú posa el seu":"Mode obert: tothom ho pot canviar tot"); };
+    const F=Sync.fb, upd=(data,ok)=>withTimeout(F.updateDoc(Sync.ref("events",e.id),data),10000).then(()=>{ toast(ok); this.open(e); },err=>toast(Sync.errText(err)));
+    $$("[data-role]").forEach(s=>s.onchange=()=>upd({["roles."+s.dataset.role]:s.value},"Rol canviat"));
+    $$("[data-kick]").forEach(b=>b.onclick=async()=>{ const u=b.dataset.kick, nm=(e.names&&e.names[u])||"aquesta persona";
+      if(!await ask("Treure l'accés a "+nm+"?","Deixarà de veure l'esdeveniment i de rebre'n els canvis. El que ja tingui al seu mòbil no es pot esborrar a distància.","Treure",true)) return this.open(e);
+      upd({["roles."+u]:F.deleteField(), memberUids:F.arrayRemove(u)},"Accés tret"); });
+    const inv=async role=>{ try{ this.share(e,await Sync.createInvite(e,role),role); }catch(err){ toast(Sync.errText(err)); } };
+    $("#invE").onclick=()=>inv("editor"); $("#invV").onclick=()=>inv("viewer");
+    try{
+      const list=await Sync.myInvites(e), box=$("#invList"); if(!box) return;
+      box.innerHTML=list.length?"Invitacions actives (caduquen als 30 dies):"+list.map(i=>`<div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+        <b class="num" style="letter-spacing:1px;color:var(--ink)">${i.code}</b> · ${ROLE[i.role]} <span style="flex:1"></span>
+        <button class="link" style="padding:6px" data-ishare="${i.code}" data-irole="${i.role}">Enviar</button><button class="link" style="padding:6px;color:var(--neg)" data-irev="${i.code}">Anul·lar</button></div>`).join("")
+        :"Encara no hi ha cap invitació activa.";
+      $$("[data-ishare]").forEach(b=>b.onclick=()=>this.share(e,b.dataset.ishare,b.dataset.irole));
+      $$("[data-irev]").forEach(b=>b.onclick=()=>withTimeout(F.updateDoc(Sync.ref("invites",b.dataset.irev),{revoked:true}),10000)
+        .then(()=>{ toast("Invitació anul·lada: el codi ja no serveix"); this.open(e); },err=>toast(Sync.errText(err))));
+    }catch(err){ const box=$("#invList"); if(box) box.textContent="No s'han pogut carregar les invitacions ("+Sync.errText(err)+")"; }
+  },
+  async share(e,code,role){
+    const link=WEB_URL+"/i?c="+code;
+    const text="T'he convidat a «"+e.name+"» a Càlculs Canet ("+(role==="viewer"?"per mirar":"per editar")+").\nObre l'enllaç: "+link+"\nO a l'app: Entrar amb un codi → "+code;
+    const SH=Nat("Share");
+    try{ if(SH) return await SH.share({title:e.name,text,dialogTitle:"Enviar la invitació"});
+      if(navigator.share) return await navigator.share({title:e.name,text}); }catch(err){ return; }
+    try{ await navigator.clipboard.writeText(text); toast("Invitació copiada: enganxa-la al WhatsApp"); }catch(_){ prompt("Copia la invitació:",text); }
+  },
+};
+
+/* ACTUALITZACIONS (només a l'APK; a la web no surt mai). Model ParkH:
+   - Quina és l'última: api.github.com/repos/{repo}/releases/latest (tag vX.Y, novetats = text del release)
+   - L'APK el baixa i el comprova el codi natiu (Updater.java)
+   - Obligatòria: update.json al repo públic -> {"minRequired":"X.Y"}
+   Memòria de 30 min en obrir l'app; des d'Ajustos es força. */
+const Upd={
+  KEY:"cc_upd", MAX_AGE:30*60*1000, app:null, info:null, busy:false,
+  P:(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())?(Capacitor.Plugins.Upd||Capacitor.registerPlugin("Upd")):null,
+  async init(){
+    if(!this.P) return;
+    try{ this.app=await this.P.getInfo(); }catch(e){ return; }
+    document.addEventListener("visibilitychange",()=>{ const b=$("#updBox"); if(!document.hidden&&b&&!this.busy) this.paintBox(b); });
+    this.check(false);
+  },
+  async refresh(force){
+    let cache=null; try{ cache=JSON.parse(localStorage.getItem(this.KEY)||"null"); }catch(e){}
+    if(!force&&cache&&cache.latest&&Date.now()-cache.ts<this.MAX_AGE&&Date.now()>=cache.ts) return cache;
+    const repo=this.app.repo;
+    try{
+      const r=await this.P.httpGet({url:"https://api.github.com/repos/"+repo+"/releases/latest",timeout:10000});
+      if(r.status!==200) throw new Error("http "+r.status);
+      const j=JSON.parse(r.body); if(!j.tag_name) throw new Error("sense tag");
+      const fresh={latest:j.tag_name.replace(/^v/i,""),notes:j.body||"",minRequired:null,ts:Date.now()};
+      try{ const u=await this.P.httpGet({url:"https://raw.githubusercontent.com/"+repo+"/main/update.json",timeout:8000});
+        if(u.status===200) fresh.minRequired=JSON.parse(u.body).minRequired||null; }catch(e){}   // update.json és opcional
+      try{ localStorage.setItem(this.KEY,JSON.stringify(fresh)); }catch(e){}
+      return fresh;
+    }catch(e){ return cache&&cache.latest?cache:null; }   // sense xarxa: l'últim conegut
+  },
+  async check(manual){
+    if(manual) toast("Buscant actualitzacions…");
+    this.info=await this.refresh(manual);
+    const st=updState(this.app.version,this.info);
+    if(st.status==="newer") this.sheet(st.mandatory);
+    else if(manual) toast(st.status==="latest"?"Tens l'última versió ("+this.app.version+")":"No s'ha pogut mirar. Revisa la connexió.");
+  },
+  sheet(mandatory){
+    const v=esc(this.info.latest);
+    openSheet(`<div class="head"><h2>${mandatory?"Cal actualitzar":"Versió nova "+v}</h2></div>
+      <p style="margin:0 0 12px">${mandatory?"Aquesta versió ja no serveix. Instal·la la "+v+" per continuar (no perds les dades).":"Tens la "+esc(this.app.version)+". Hi ha la "+v+":"}</p>
+      ${this.info.notes?`<div class="upd-notes">${esc(this.info.notes)}</div>`:""}
+      <div id="updBox"></div>
+      ${mandatory?"":`<button class="btn" id="updLater" style="margin-top:9px;background:var(--chip)">Més tard</button>`}`, mandatory);
+    $("#updLater")&&($("#updLater").onclick=closeSheet);
+    this.paintBox($("#updBox"));
+  },
+  // Botó, permís, progrés i errors. El navegador només s'obre si l'usuari toca l'enllaç.
+  async paintBox(box,err){
+    if(!box||this.busy) return;
+    const can=(await this.P.canInstall()).value;
+    if(!can){
+      box.innerHTML=`<p class="hint" style="margin:0 2px 12px">Per actualitzar, Android ha de deixar que Càlculs Canet instal·li la versió nova. Toca el botó, activa «Permet d'aquesta font» i torna aquí.</p>
+        <button class="btn btn-primary" id="updPerm">Obrir el permís</button>`;
+      $("#updPerm").onclick=()=>this.P.openInstallSettings();
+      return;
+    }
+    box.innerHTML=(err?`<p class="err">No s'ha pogut baixar.</p>`:"")+
+      `<button class="btn btn-primary" id="updGo">${err?"Reintentar":"Actualitzar"}</button>`+
+      (err?`<button class="link" id="updWeb">Baixar des del navegador</button>`:"");
+    $("#updGo").onclick=()=>this.start(box);
+    $("#updWeb")&&($("#updWeb").onclick=()=>this.P.openBrowser({url:this.app.downloadUrl}));
+  },
+  async start(box){
+    if(this.busy) return; this.busy=true;
+    const v=this.info.latest;
+    box.innerHTML=`<p style="margin:0" id="updTxt">Baixant la ${esc(v)}… 0 %</p><div class="upd-bar"><i id="updFill"></i></div>`;
+    const h=await this.P.addListener("updProgress",p=>{
+      if(p.retry){ $("#updTxt").textContent="La connexió ha fallat. Reintent "+p.retry+" de "+p.of+"…"; return; }
+      $("#updFill").style.width=p.percent+"%";
+      $("#updTxt").textContent=p.percent>=100?"Obrint l'instal·lador…":"Baixant la "+v+"… "+p.percent+" %";
+    });
+    let err=null;
+    try{ await this.P.downloadUpdate(); }catch(e){ err=e&&e.message||"error"; }
+    this.busy=false; h.remove();
+    if(err) this.paintBox(box,err); else setTimeout(()=>this.paintBox(box),1500);   // si tanca l'instal·lador, pot tornar-hi
+  }
+};
+
+/* ARRENCADA: primer es pinta el que hi ha al mòbil; el núvol arriba després */
+store=loadStore();
+async function askCode(){ const c=await askText("Entrar amb un codi","Codi d'invitació (8 lletres i números)","","Entrar","Ex.: K7MPX2QA"); if(c) Sync.join(c); }
+$("#archived").insertAdjacentHTML("afterend",'<button class="link" id="codeBtn" style="display:block;margin:10px auto 0">Tinc un codi d\'invitació</button>');
+$("#codeBtn").onclick=askCode;
+const AppP=Nat("App");
+if(AppP){
+  AppP.addListener("backButton",()=>{                 // enrere d'Android: tanca la fulla, torna a l'inici, o surt
+    if($("#viewer").classList.contains("on")) $("#viewer").classList.remove("on");
+    else if($("#picker").classList.contains("on")) $("#picker").classList.remove("on");
+    else if($("#sheet").classList.contains("on")){ if(!$("#sheet").dataset.locked){ editing=null; closeSheet(); } }
+    else if(state) goHome(); else AppP.exitApp();
+  });
+  AppP.addListener("appUrlOpen",d=>{ try{ const u=new URL(d.url), c=u.searchParams.get("c"); if(c) Sync.join(c); }catch(e){} });   // App Links /i?c=
+}
+if(store.currentId&&store.events[store.currentId]) openEvent(store.currentId); else goHome();
+Photos.gc();
+Sync.start();
+Upd.init();
 
 if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
 </script>
