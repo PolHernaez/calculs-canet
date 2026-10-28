@@ -787,6 +787,13 @@ function personForm(id){
     <div class="hint" style="margin:0 2px 0">El percentatge és quant paga el nen respecte a un adult. Es canvia a Ajustos.</div>
     <div class="grp" style="margin-top:16px"><label class="lab2">Hi ha algú que paga per aquesta fila? (cap de família)</label>
       <select class="fld" id="fHead"><option value="">— No, es paga ell mateix —</option>${state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===r.headId?"selected":""}>${esc(x.name)}</option>`).join("")}<option value="__new__">+ Crear nova persona com a cap…</option></select>
+      <div class="card" id="newHead" style="padding:14px;margin:10px 0 0;box-shadow:none" hidden>
+        <div class="grp"><label class="lab2" for="nhName">Nom del cap de família</label>
+          <input class="fld" id="nhName" maxlength="80" placeholder="Nom de la persona o família"></div>
+        <label class="lab2" for="nhAdults">Adults de la seva fila (comptant-hi el cap)</label>
+        <div class="stepper" style="max-width:200px"><button id="nhMinus" aria-label="Un adult menys">−</button><input class="num" id="nhAdults" type="text" inputmode="numeric" value="1"><button id="nhPlus" aria-label="Un adult més">+</button></div>
+        <div class="two" style="margin-top:14px"><button class="btn btn-ghost" id="nhNo">Cancel·lar</button><button class="btn btn-primary" id="nhOk">Crear el cap</button></div>
+      </div>
       <div class="hint" style="margin:6px 2px 0">Si tries algú, s'ajunten els saldos de tots dos i no es deuen res entre ells: només paga o cobra el cap.</div></div>
     <button class="btn btn-primary" id="saveP" style="margin-top:16px">${id?"Desar":"Afegir"}</button>
     ${id?`<button class="btn" id="delP" style="margin-top:9px;color:var(--neg);background:var(--neg-bg)">Eliminar</button>`:""}
@@ -844,18 +851,24 @@ function personForm(id){
       +state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===selId?"selected":""}>${esc(x.name)}</option>`).join("")
       +'<option value="__new__">+ Crear nova persona com a cap…</option>';
   }
+  // Cap nou dins el mateix formulari (res de finestres del sistema). El cap també ve: com a mínim 1 adult.
+  let headBefore=r.headId||"";
+  const nh=$("#newHead"), nhAd=$("#nhAdults");
+  const closeNew=()=>{ nh.hidden=true; $("#fHead").value=headBefore; };
   $("#fHead").addEventListener("change",function(){
-    if(this.value==="__new__"){
-      const nm=prompt("Nom de qui se'n fa càrrec (cap de família):");
-      if(nm && nm.trim()){
-        // el cap també ve: com a mínim 1 adult (si cancel·len la pregunta, 1)
-        const adults=Math.min(50,Math.max(1,parseInt(prompt("Quants adults són a la fila de "+nm.trim()+"? (ell inclòs)","1"),10)||1));
-        const h={id:uid(),name:nm.trim().slice(0,80),paid:0,adults,kids:[],tickets:[],headId:null,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined};
-        state.rows.push(h); save(); rebuildHeadOptions(h.id);
-        toast("Cap creat: "+h.name+" ("+adults+(adults===1?" adult":" adults")+"). Edita'l després per posar-hi nens o el que ha pagat.");
-      } else { this.value=r.headId||""; }
-    }
+    if(this.value!=="__new__"){ headBefore=this.value; nh.hidden=true; return; }
+    $("#nhName").value=""; nhAd.value="1"; nh.hidden=false; $("#nhName").focus();
   });
+  $("#nhMinus").onclick=()=>{ nhAd.value=Math.max(1,(parseInt(nhAd.value,10)||1)-1); };
+  $("#nhPlus").onclick=()=>{ nhAd.value=Math.min(50,(parseInt(nhAd.value,10)||0)+1); };
+  $("#nhNo").onclick=closeNew; $("#nhName").onkeydown=e=>{ if(e.key==="Enter") $("#nhOk").click(); };
+  $("#nhOk").onclick=()=>{
+    const nm=$("#nhName").value.trim(); if(!nm){ toast("Posa el nom del cap"); $("#nhName").focus(); return; }
+    const adults=Math.min(50,Math.max(1,parseInt(nhAd.value,10)||1));
+    const h={id:uid(),name:nm.slice(0,80),paid:0,adults,kids:[],tickets:[],headId:null,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined};
+    state.rows.push(h); save(); rebuildHeadOptions(h.id); headBefore=h.id; nh.hidden=true;
+    toast("Cap creat: "+h.name+" ("+adults+(adults===1?" adult":" adults")+"). Després el pots tocar per posar-hi nens o el que ha pagat.");
+  };
   $("#saveP").onclick=()=>{
     const name=$("#fName").value.trim(); if(!name){ toast("Posa un nom"); return; }
     // un tiquet sense import però amb foto es guarda (s'hi pot posar l'import després)
@@ -1149,7 +1162,15 @@ async function share(){
   if(SH){ try{ await SH.share({title:state.name,text,dialogTitle:"Enviar el resultat"}); return; }catch(e){ if(/cancel/i.test(e&&e.message||"")) return; } }
   if(navigator.share){ try{ await navigator.share({title:"Càlculs Canet",text}); return; }catch(e){ if(e.name==="AbortError")return; } }
   try{ await navigator.clipboard.writeText(text); toast("Resultat copiat"); }
-  catch(e){ const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");toast("Resultat copiat");}catch(_){alert(text);} ta.remove(); }
+  catch(e){ showText("Resultat",text); }
+}
+// Quan no es pot compartir ni copiar sol: el text en una fulla, seleccionat, per copiar-lo a mà (mai finestres del sistema)
+function showText(title,text){
+  openSheet(`<div class="head"><h2>${esc(title)}</h2><button id="x" aria-label="Tancar">${IC.close}</button></div>
+    <textarea class="fld" id="stTxt" readonly rows="8" style="resize:none">${esc(text)}</textarea>
+    <button class="btn btn-primary" id="stCopy" style="margin-top:12px">Copiar</button>`);
+  const ta=$("#stTxt"); $("#x").onclick=closeSheet;
+  $("#stCopy").onclick=()=>{ ta.focus(); ta.select(); try{ document.execCommand("copy"); toast("Copiat"); }catch(_){ toast("Mantén premut el text per copiar-lo"); } };
 }
 
 /* NÚVOL (Firebase): sessió anònima + Firestore amb memòria al mòbil (funciona sense connexió i s'envia sol en tornar-n'hi).
@@ -1490,7 +1511,7 @@ const Members={
     const SH=Nat("Share");
     try{ if(SH) return await SH.share({title:e.name,text,dialogTitle:"Enviar la invitació"});
       if(navigator.share) return await navigator.share({title:e.name,text}); }catch(err){ return; }
-    try{ await navigator.clipboard.writeText(text); toast("Invitació copiada: enganxa-la al WhatsApp"); }catch(_){ prompt("Copia la invitació:",text); }
+    try{ await navigator.clipboard.writeText(text); toast("Invitació copiada: enganxa-la al WhatsApp"); }catch(_){ showText("Invitació",text); }
   },
 };
 
