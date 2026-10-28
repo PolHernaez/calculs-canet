@@ -334,11 +334,11 @@ function save(){
 function backupStore(why){ const s=lsGet(LS3); if(s) lsSet(LS3+"_"+why,s); }
 function seed(){
   return {config:{zero:3,full:12}, rows:[
-    {id:uid(),name:"Marc",paid:200,adults:2,kids:[]},
-    {id:uid(),name:"Laura",paid:0,adults:1,kids:[10]},
-    {id:uid(),name:"Jordi",paid:150,adults:2,kids:[6,2]},
-    {id:uid(),name:"Anna",paid:100,adults:2,kids:[17]},
-    {id:uid(),name:"Pau",paid:80,adults:1,kids:[]},
+    {id:uid(),name:"Família A",paid:200,adults:2,kids:[]},
+    {id:uid(),name:"Família B",paid:0,adults:1,kids:[10]},
+    {id:uid(),name:"Família C",paid:150,adults:2,kids:[6,2]},
+    {id:uid(),name:"Família D",paid:100,adults:2,kids:[17]},
+    {id:uid(),name:"Família E",paid:80,adults:1,kids:[]},
   ].map(normRow)};
 }
 
@@ -848,9 +848,11 @@ function personForm(id){
     if(this.value==="__new__"){
       const nm=prompt("Nom de qui se'n fa càrrec (cap de família):");
       if(nm && nm.trim()){
-        const h={id:uid(),name:nm.trim().slice(0,80),paid:0,adults:0,kids:[],tickets:[],headId:null,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined};
+        // el cap també ve: com a mínim 1 adult (si cancel·len la pregunta, 1)
+        const adults=Math.min(50,Math.max(1,parseInt(prompt("Quants adults són a la fila de "+nm.trim()+"? (ell inclòs)","1"),10)||1));
+        const h={id:uid(),name:nm.trim().slice(0,80),paid:0,adults,kids:[],tickets:[],headId:null,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined};
         state.rows.push(h); save(); rebuildHeadOptions(h.id);
-        toast("Cap creat: "+h.name+" — edita'l després si vols posar-hi el que ha pagat");
+        toast("Cap creat: "+h.name+" ("+adults+(adults===1?" adult":" adults")+"). Edita'l després per posar-hi nens o el que ha pagat.");
       } else { this.value=r.headId||""; }
     }
   });
@@ -1331,7 +1333,7 @@ const Sync={
   },
   async askName(){
     if(this.myName()) return true;
-    const n=await askText("Com et dius?","El teu nom (el veuran els altres)","","Continuar","Per exemple «Pol»");
+    const n=await askText("Com et dius?","El teu nom (el veuran els altres)","","Continuar","El teu nom o com et coneixen");
     if(!n) return false; lsSet("cc_name",n.slice(0,40)); return true;
   },
   // Entrar a un esdeveniment amb un codi o un enllaç. Retorna l'id de l'esdeveniment.

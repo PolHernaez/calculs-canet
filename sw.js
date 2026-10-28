@@ -1,6 +1,6 @@
 // Service worker — Càlculs Canet (web/PWA). Fitxers propis primer de la memòria (funciona sense connexió).
 // El nom de la memòria porta la versió (el posa deploy_web.py): cada versió nova s'instal·la sola.
-const CACHE = "canet-3.0-b6bc7f9d";
+const CACHE = "canet-3.1-4433fcab";
 const ASSETS = [
   "./",
   "./index.html",
