@@ -207,6 +207,20 @@
   .cmp th{font-size:12px;color:var(--muted);font-weight:650;text-align:right;padding:8px 6px;}
   .cmp th:first-child,.cmp td:first-child{text-align:left;}
   .cmp td{padding:9px 6px;border-top:1px solid var(--line2);text-align:right;}
+  /* llistes pròpies en lloc del <select> del sistema */
+  .pick{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;cursor:pointer;color:var(--ink);}
+  .pick .ico{color:var(--muted);flex:none;}
+  .pick[aria-expanded="true"] .ico{transform:rotate(180deg);}
+  .picklist{border:1px solid var(--line);border-radius:11px;margin-top:6px;background:var(--card);max-height:320px;overflow-y:auto;box-shadow:var(--shadow);}
+  .picklist button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:13px 14px;
+    border-bottom:1px solid var(--line2);font-size:15px;text-align:left;min-height:48px;}
+  .picklist button:last-child{border-bottom:none;}
+  .picklist button:active{background:var(--chip);}
+  .picklist button[aria-selected="true"]{color:var(--green);font-weight:650;}
+  .picklist .new{justify-content:flex-start;color:var(--green);font-weight:650;}
+  .seg{display:inline-flex;background:var(--chip);border-radius:10px;padding:3px;flex:none;}
+  .seg button{padding:7px 10px;border-radius:8px;font-size:13px;font-weight:650;color:var(--muted);min-height:36px;}
+  .seg button[aria-pressed="true"]{background:var(--card);color:var(--green);box-shadow:0 1px 2px rgba(0,0,0,.08);}
   #printArea{display:none;}
   @media print{
     body>*:not(#printArea){display:none!important;}
@@ -292,6 +306,8 @@ const IC={
   plus:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
   list:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1.2" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.2" fill="currentColor" stroke="none"/></svg>',
   swap:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>',
+  chev:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>',
+  check:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
   arr:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
   share:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
   close:'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
@@ -786,7 +802,9 @@ function personForm(id){
     <button class="addkid" id="addKid">${IC.plus}<span>Afegir nen</span></button>
     <div class="hint" style="margin:0 2px 0">El percentatge és quant paga el nen respecte a un adult. Es canvia a Ajustos.</div>
     <div class="grp" style="margin-top:16px"><label class="lab2">Hi ha algú que paga per aquesta fila? (cap de família)</label>
-      <select class="fld" id="fHead"><option value="">— No, es paga ell mateix —</option>${state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===r.headId?"selected":""}>${esc(x.name)}</option>`).join("")}<option value="__new__">+ Crear nova persona com a cap…</option></select>
+      <input type="hidden" id="fHead" value="${esc(r.headId&&state.rows.some(x=>x.id===r.headId)?r.headId:"")}">
+      <button class="fld pick" id="fHeadBtn" type="button" aria-haspopup="listbox" aria-expanded="false"><span id="fHeadTxt"></span>${IC.chev}</button>
+      <div class="picklist" id="fHeadList" role="listbox" aria-label="Cap de família" hidden></div>
       <div class="card" id="newHead" style="padding:14px;margin:10px 0 0;box-shadow:none" hidden>
         <div class="grp"><label class="lab2" for="nhName">Nom del cap de família</label>
           <input class="fld" id="nhName" maxlength="80" placeholder="Nom de la persona o família"></div>
@@ -846,19 +864,25 @@ function personForm(id){
   const adInput=$("#fAdults");
   $("#aMinus").onclick=()=>{ adInput.value=Math.max(0,(parseInt(adInput.value,10)||0)-1); };
   $("#aPlus").onclick=()=>{ adInput.value=(parseInt(adInput.value,10)||0)+1; };
+  // Cap de família: llista pròpia dins el formulari (el <select> obre la finestra del sistema)
+  const NONE="Ningú: es paga la seva part";
   function rebuildHeadOptions(selId){
-    $("#fHead").innerHTML='<option value="">— No, es paga ell mateix —</option>'
-      +state.rows.filter(x=>x.id!==r.id).map(x=>`<option value="${x.id}" ${x.id===selId?"selected":""}>${esc(x.name)}</option>`).join("")
-      +'<option value="__new__">+ Crear nova persona com a cap…</option>';
+    $("#fHead").value=selId||"";
+    const opts=[["",NONE],...state.rows.filter(x=>x.id!==r.id).map(x=>[x.id,x.name||"(sense nom)"])];
+    $("#fHeadTxt").textContent=(opts.find(o=>o[0]===(selId||""))||opts[0])[1];
+    $("#fHeadList").innerHTML=opts.map(([v,t])=>`<button type="button" role="option" data-hv="${esc(v)}" aria-selected="${v===(selId||"")}"><span>${esc(t)}</span>${v===(selId||"")?IC.check:""}</button>`).join("")
+      +`<button type="button" role="option" class="new" data-hv="__new__" aria-selected="false">${IC.plus}<span>Crear nova persona com a cap</span></button>`;
   }
+  rebuildHeadOptions($("#fHead").value);
+  const hl=$("#fHeadList"), hb=$("#fHeadBtn");
+  const showList=on=>{ hl.hidden=!on; hb.setAttribute("aria-expanded",on); };
+  hb.onclick=()=>showList(hl.hidden);
   // Cap nou dins el mateix formulari (res de finestres del sistema). El cap també ve: com a mínim 1 adult.
-  let headBefore=r.headId||"";
   const nh=$("#newHead"), nhAd=$("#nhAdults");
-  const closeNew=()=>{ nh.hidden=true; $("#fHead").value=headBefore; };
-  $("#fHead").addEventListener("change",function(){
-    if(this.value!=="__new__"){ headBefore=this.value; nh.hidden=true; return; }
-    $("#nhName").value=""; nhAd.value="1"; nh.hidden=false; $("#nhName").focus();
-  });
+  const closeNew=()=>{ nh.hidden=true; };
+  hl.onclick=e=>{ const b=e.target.closest("[data-hv]"); if(!b) return; showList(false);
+    if(b.dataset.hv!=="__new__"){ rebuildHeadOptions(b.dataset.hv); nh.hidden=true; return; }
+    $("#nhName").value=""; nhAd.value="1"; nh.hidden=false; $("#nhName").focus(); };
   $("#nhMinus").onclick=()=>{ nhAd.value=Math.max(1,(parseInt(nhAd.value,10)||1)-1); };
   $("#nhPlus").onclick=()=>{ nhAd.value=Math.min(50,(parseInt(nhAd.value,10)||0)+1); };
   $("#nhNo").onclick=closeNew; $("#nhName").onkeydown=e=>{ if(e.key==="Enter") $("#nhOk").click(); };
@@ -866,7 +890,7 @@ function personForm(id){
     const nm=$("#nhName").value.trim(); if(!nm){ toast("Posa el nom del cap"); $("#nhName").focus(); return; }
     const adults=Math.min(50,Math.max(1,parseInt(nhAd.value,10)||1));
     const h={id:uid(),name:nm.slice(0,80),paid:0,adults,kids:[],tickets:[],headId:null,updatedAt:Date.now(),pos:Date.now(),ownerUid:Sync.uid()||undefined};
-    state.rows.push(h); save(); rebuildHeadOptions(h.id); headBefore=h.id; nh.hidden=true;
+    state.rows.push(h); save(); rebuildHeadOptions(h.id); nh.hidden=true;
     toast("Cap creat: "+h.name+" ("+adults+(adults===1?" adult":" adults")+"). Després el pots tocar per posar-hi nens o el que ha pagat.");
   };
   $("#saveP").onclick=()=>{
@@ -897,7 +921,7 @@ function personForm(id){
     state.rows=state.rows.filter(x=>x.id!==id); state.rows.forEach(x=>{ if(x.headId===id) x.headId=null; });
     editing=null; renderAll(); toast("Eliminat"); });
   if(!Sync.canEditRow(r)){
-    $$("#sheetBody input,#sheetBody select,#sheetBody .del,#addTk,#addKid,#aMinus,#aPlus,#saveP,#delP").forEach(x=>{ x.disabled=true; if(x.id==="saveP"||x.id==="delP"||x.id==="addTk"||x.id==="addKid") x.hidden=true; });
+    $$("#sheetBody input,#sheetBody .del,#fHeadBtn,#addTk,#addKid,#aMinus,#aPlus,#saveP,#delP").forEach(x=>{ x.disabled=true; if(x.id==="saveP"||x.id==="delP"||x.id==="addTk"||x.id==="addKid") x.hidden=true; });
     $("#formNotice").innerHTML='<div class="notice">Només la pot canviar qui la va afegir o el propietari de l\'esdeveniment.</div>';
   }
 }
@@ -1476,7 +1500,7 @@ const Members={
       <div class="card" style="padding:2px 14px;margin-bottom:16px">${ids.map(u=>`<div class="balrow">
         <div class="mono" style="width:34px;height:34px;font-size:12px">${esc(initials(e.names&&e.names[u]))}</div>
         <div style="flex:1;min-width:0"><div class="nm">${esc((e.names&&e.names[u])||"Sense nom")}${u===me?" (tu)":""}</div><div class="meta">${ROLE[e.roles[u]]||""}</div></div>
-        ${own&&u!==me&&e.roles[u]!=="owner"?`<select class="fld" data-role="${u}" style="width:auto;padding:8px" aria-label="Rol"><option value="editor" ${e.roles[u]==="editor"?"selected":""}>Edita</option><option value="viewer" ${e.roles[u]==="viewer"?"selected":""}>Mira</option></select>
+        ${own&&u!==me&&e.roles[u]!=="owner"?`<div class="seg" role="group" aria-label="Rol">${[["editor","Edita"],["viewer","Mira"]].map(([v,t])=>`<button type="button" data-role="${u}" data-rv="${v}" aria-pressed="${e.roles[u]===v}">${t}</button>`).join("")}</div>
           <button class="del" data-kick="${u}" aria-label="Treure-li l'accés" style="width:40px;height:40px;border-radius:9px;color:var(--neg);background:var(--neg-bg);display:flex;align-items:center;justify-content:center">${IC.trash}</button>`:""}
       </div>`).join("")}</div>
       ${own?`<div class="sect">Convidar</div>
@@ -1488,7 +1512,7 @@ const Members={
     if(!own) return;
     $("#mOwn").onchange=ev=>{ e.mode=ev.target.checked?"own":"open"; paint(); save(); toast(e.mode==="own"?"Ara cadascú posa el seu":"Mode obert: tothom ho pot canviar tot"); };
     const F=Sync.fb, upd=(data,ok)=>withTimeout(F.updateDoc(Sync.ref("events",e.id),data),10000).then(()=>{ toast(ok); this.open(e); },err=>toast(Sync.errText(err)));
-    $$("[data-role]").forEach(s=>s.onchange=()=>upd({["roles."+s.dataset.role]:s.value},"Rol canviat"));
+    $$("[data-role]").forEach(b=>b.onclick=()=>{ if(b.getAttribute("aria-pressed")==="true") return; upd({["roles."+b.dataset.role]:b.dataset.rv},"Rol canviat"); });
     $$("[data-kick]").forEach(b=>b.onclick=async()=>{ const u=b.dataset.kick, nm=(e.names&&e.names[u])||"aquesta persona";
       if(!await ask("Treure l'accés a "+nm+"?","Deixarà de veure l'esdeveniment i de rebre'n els canvis. El que ja tingui al seu mòbil no es pot esborrar a distància.","Treure",true)) return this.open(e);
       upd({["roles."+u]:F.deleteField(), memberUids:F.arrayRemove(u)},"Accés tret"); });
